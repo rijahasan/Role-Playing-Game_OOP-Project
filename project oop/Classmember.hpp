@@ -14,7 +14,6 @@ class Classmember{
     void moveRight();
     void moveLeft();
     void makeMove(int);
-    virtual void textbox()=0;
     Classmember();
     ~Classmember();
     void movement(SDL_Keycode);
