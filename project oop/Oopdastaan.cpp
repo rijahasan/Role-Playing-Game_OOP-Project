@@ -3,15 +3,15 @@
 
 void Oopdastaan::drawObjects()
 {
-    d1->draw();
-    d2->draw();
-    d3->draw();
-    d4->draw();
-    d5->draw();
-    d6->draw();
-    d7->draw();
-    d8->draw();
-    d9->draw();
+    D[0]->draw();
+    D[1]->draw();
+    D[2]->draw();
+    D[3]->draw();
+    D[4]->draw();
+    D[5]->draw();
+    D[6]->draw();
+    D[7]->draw();
+    D[8]->draw();
     f1->draw();
     s1->draw();
     s2->draw();
@@ -40,19 +40,21 @@ void Oopdastaan::drawObjects()
  
 }
 
-void Oopdastaan::createObject()
+void Oopdastaan::createDesks()
 {
     //std::cout << "Mouse clicked at: " << x << " -- " << y << std::endl;
-
-    d1 = new desk(100, 450);
-    d2 = new desk(780, 450);
-    d3 = new desk(290, 350);
-    d4 = new desk(590, 350);
-    d5 = new desk(50, 250);
-    d6 = new desk(830, 250);
-    d7 = new desk(280, 150);
-    d8 = new desk(600, 150);
-    d9 = new desk(440,25);
+    D[0] = new desk(100, 450);
+    D[1] = new desk(780, 450);
+    D[2] = new desk(290, 350);
+    D[3] = new desk(590, 350);
+    D[4] = new desk(50, 250);
+    D[5] = new desk(830, 250);
+    D[6] = new desk(280, 150);
+    D[7] = new desk(600, 150);
+    D[8] = new desk(440,25);
+    // cout<<d8->returnCoordinates();
+}
+void Oopdastaan :: createStudents(){
     f1 = new faculty(470, 0);
     s1 = new students(130,490);
     s2 = new students(810, 490);
@@ -63,7 +65,6 @@ void Oopdastaan::createObject()
     s7 = new students(310, 190);
     s8 = new students(630, 190);
     //s9 = new students(20, 510);
-
 
 }
 

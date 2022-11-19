@@ -17,5 +17,5 @@ textbox :: textbox(int x, int y, string inputtxt)
 {
     srcRect = {226, 122, 179, 129};
     moverRect = {x, y, 120, 90};
-    txt=inputtxt;
+    // txt=inputtxt;
 }

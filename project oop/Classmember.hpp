@@ -16,6 +16,7 @@ class Classmember{
     void makeMove(int);
     Classmember();
     ~Classmember();
-    void movement(SDL_Keycode);
+    void movement(SDL_Keycode );
     virtual void draw() = 0;
+
 };

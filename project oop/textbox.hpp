@@ -1,6 +1,9 @@
 #include<SDL.h>
 #include "drawing.hpp"
-#include<string>
+#include <string>
+using namespace std;
+
+
 
 
 class textbox{

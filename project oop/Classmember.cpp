@@ -78,6 +78,7 @@ void Classmember:: moveDown()
 
 void Classmember:: movement(SDL_Keycode key)
 {
+    // if (moverRect.x-10<=100+90 && moverRect.x+10+ 120);
     if (key == SDLK_UP) //when up pressed
     {
         makeMove(1);

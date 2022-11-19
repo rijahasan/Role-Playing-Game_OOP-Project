@@ -125,9 +125,11 @@ void Game::run( )
 {
 	bool quit = false;
 	SDL_Event e;
-	Oopdastaan humania;
-	students* s9;
+	Oopdastaan oopmania;
+	students* s9;	//main character
 	s9 = new students(20, 510);
+	oopmania.createDesks();
+	oopmania.createStudents();
 	
 	// int bee_frame;
 	while( !quit )
@@ -146,7 +148,6 @@ void Game::run( )
 			
 				s9->movement(e.key.keysym.sym);
 			}
-			humania.createObject();
 			
 		}
 
@@ -154,7 +155,7 @@ void Game::run( )
 		SDL_RenderCopy(Drawing::gRenderer, gTexture, NULL, NULL);//Draws background to renderer
 		//***********************draw the objects here********************
 
-		humania.drawObjects();
+		oopmania.drawObjects();
 		s9->draw();
 
 

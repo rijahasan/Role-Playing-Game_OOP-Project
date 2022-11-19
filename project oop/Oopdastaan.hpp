@@ -12,27 +12,12 @@
 using namespace std;
 
 class Oopdastaan{
-
-    //Right now we're creating one pigeon, 
-    /*
-    Pigeon p1;
-    bee b1;
-    butterfly bf1;
-
-    // In the solution you have to create vectors of pigeons, eggs, and nests    
+/*    // In the solution you have to create vectors of pigeons, eggs, and nests    
     vector<Pigeon*> pigeons;
     vector <bee*> bees;
     vector<butterfly*> butterflies;
     */
-   desk* d1;
-   desk* d2;
-   desk* d3;
-   desk* d4; 
-   desk* d5;
-   desk* d6;
-   desk* d7;
-   desk* d8;
-   desk* d9;
+   desk** D = new desk*[9];     //9 desks in class
    faculty* f1;
    students* s1;
    students* s2;
@@ -44,12 +29,12 @@ class Oopdastaan{
    students* s8;
    //students* s9;
 
-
-
     public:
 
     void drawObjects(); 
-    void createObject();
+    void createStudents();
+    void createDesks();
+
     ~Oopdastaan();
     
 };
