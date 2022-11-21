@@ -1,0 +1,49 @@
+Hamza:
+*uses laptop
+
+interaction: 
+*nudge*
+*ignore*
+
+----
+
+Hamza:
+*uses laptop
+
+interaction: 
+*nudge*
+*ignore*
+
+----
+
+Hamza:
+*uses laptop
+
+interaction: 
+*nudge*
+*ignore*
+
+----
+
+//after we nudge thrice, conversation initiate
+
+Gulab:
+What are you working on?
+
+Hamza: 
+Class!
+
+Gulab:
+Ah What?
+
+Hamza:
+OOP Class
+
+Gulab:
+Yes I know we are in OOP class
+
+Hamza:
+Dumbo, there's a topic named 'class' in our course. Our last homework was based on it. Did you not do it?
+
+----
+
