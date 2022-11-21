@@ -1,17 +1,13 @@
 #include <iostream>
 #include "Oopdastaan.hpp"
+using namespace std;
+
 
 void Oopdastaan::drawObjects()
 {
-    D[0]->draw();
-    D[1]->draw();
-    D[2]->draw();
-    D[3]->draw();
-    D[4]->draw();
-    D[5]->draw();
-    D[6]->draw();
-    D[7]->draw();
-    D[8]->draw();
+    for (auto next : desks)
+        next->draw();
+
     f1->draw();
     s1->draw();
     s2->draw();
@@ -43,15 +39,15 @@ void Oopdastaan::drawObjects()
 void Oopdastaan::createDesks()
 {
     //std::cout << "Mouse clicked at: " << x << " -- " << y << std::endl;
-    D[0] = new desk(100, 450);
-    D[1] = new desk(780, 450);
-    D[2] = new desk(290, 350);
-    D[3] = new desk(590, 350);
-    D[4] = new desk(50, 250);
-    D[5] = new desk(830, 250);
-    D[6] = new desk(280, 150);
-    D[7] = new desk(600, 150);
-    D[8] = new desk(440,25);
+	desks.push_back(new desk(100, 450));
+	desks.push_back(new desk(780, 450));
+	desks.push_back(new desk(290, 350));
+	desks.push_back(new desk(590, 350));
+	desks.push_back(new desk(50, 250));
+	desks.push_back(new desk(830, 250));
+	desks.push_back(new desk(280, 150));
+	desks.push_back(new desk(600, 150));
+	desks.push_back(new desk(440, 25));
     // cout<<d8->returnCoordinates();
 }
 void Oopdastaan :: createStudents(){
@@ -89,4 +85,34 @@ Oopdastaan:: ~Oopdastaan()
         butterflies.clear();
     }
     */
+}
+
+bool Oopdastaan ::  Collision(students* mainStudent, SDL_Keycode key){
+    SDL_Rect stud = mainStudent->getter();
+    for (auto next : desks)
+    {
+		SDL_Rect nextdesk = next->getter();
+
+		if (key == SDLK_UP) //when up pressed
+    {
+        if ((stud.x < (nextdesk.x + nextdesk.w)) and ((stud.x+stud.w) > nextdesk.x) and ((stud.y + stud.h)-7 > nextdesk.y) and (stud.y-7 < (nextdesk.y + nextdesk.h)))
+            return true;
+    }
+    else if (key == SDLK_DOWN) //when down key pressed
+    {
+        if ((stud.x < (nextdesk.x + nextdesk.w)) and ((stud.x+stud.w) > nextdesk.x) and ((stud.y + stud.h)+7 > nextdesk.y) and (stud.y+7 < (nextdesk.y + nextdesk.h)))
+            return true;
+    }
+    else if (key == SDLK_RIGHT) //when right key pressed
+    {
+        if ((stud.x+7 < (nextdesk.x + nextdesk.w)) and ((stud.x+stud.w)+7 > nextdesk.x) and ((stud.y + stud.h) > nextdesk.y) and (stud.y < (nextdesk.y + nextdesk.h)))
+            return true;
+    }
+    else if (key == SDLK_LEFT) //when left key pressed
+    {
+        if ((stud.x-7 < (nextdesk.x + nextdesk.w)) and ((stud.x+stud.w)-7 > nextdesk.x) and ((stud.y + stud.h) > nextdesk.y) and (stud.y < (nextdesk.y + nextdesk.h)))
+            return true;
+    }
+	}
+return false;
 }

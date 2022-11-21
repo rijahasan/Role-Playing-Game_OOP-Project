@@ -4,14 +4,11 @@
 using namespace std;
 
 
-
-
 class textbox{
     public:
     SDL_Rect srcRect, moverRect;
-    string txt;
-    void draw();
+    void  draw ();
     textbox();
-    textbox(int, int, string);
+    textbox(SDL_Rect, SDL_Rect);
 };
 

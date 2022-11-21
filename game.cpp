@@ -1,7 +1,8 @@
 #include "game.hpp"
 #include "Oopdastaan.hpp"
 #include "drawing.hpp"
-#include "students.hpp"
+
+#pragma once
 
 
 SDL_Renderer* Drawing::gRenderer = NULL;
@@ -125,13 +126,20 @@ void Game::run( )
 {
 	bool quit = false;
 	SDL_Event e;
-	Oopdastaan oopmania;
-	students* s9;	//main character
+	Oopdastaan humania;
+	students* s9;
+	list <desk*> all;
 	s9 = new students(20, 510);
-	oopmania.createDesks();
-	oopmania.createStudents();
+	all.push_back(new desk(100, 450));
+	all.push_back(new desk(780, 450));
+	all.push_back(new desk(290, 350));
+	all.push_back(new desk(590, 350));
+	all.push_back(new desk(50, 250));
+	all.push_back(new desk(830, 250));
+	all.push_back(new desk(280, 150));
+	all.push_back(new desk(600, 150));
+	all.push_back(new desk(440, 25));
 	
-	// int bee_frame;
 	while( !quit )
 	{
 		//Handle events on queue
@@ -146,25 +154,31 @@ void Game::run( )
 			if(e.type == SDL_KEYDOWN){
 			//this is a good location of character.
 				bool s = false;
-				s  = oopmania.Collision(s9, e.key.keysym.sym);
-					if (s == true and e.key.keysym.scancode!=SDL_SCANCODE_X)
+				s  = Collision(s9, all);
+					if (s == true)
 					{
-						continue;						
+						continue;
 					}
-					else if (s == false ){
+					else{
 						s9->movement(e.key.keysym.sym);
 					}
 				
 			}
+			humania.createObject();
 			
 		}
 
 		SDL_RenderClear(Drawing::gRenderer); //removes everything from renderer
 		SDL_RenderCopy(Drawing::gRenderer, gTexture, NULL, NULL);//Draws background to renderer
 		//***********************draw the objects here********************
-
-		oopmania.drawObjects();
+		for (desk* U: all)
+    	{
+        	U->draw();
+		}
+		humania.drawObjects();
 		s9->draw();
+		
+
 
 
 		//****************************************************************
@@ -173,4 +187,22 @@ void Game::run( )
 	    SDL_Delay(100);	//causes sdl engine to delay for specified miliseconds
 	}
 			
+}
+bool Game:: Collision(students* mainStudent, list <desk*> &desks)
+{
+    SDL_Rect stud = mainStudent->getter();
+
+    bool flag = false;
+    for (auto next : desks)
+    {
+        SDL_Rect nextdesk = next->getter();
+
+        if (
+            stud.x < (nextdesk.x + nextdesk.w) and (stud.x+stud.w) > nextdesk.x and (stud.y + stud.h) > nextdesk.y and stud.y < (nextdesk.y + nextdesk.h))
+        {
+            flag = true;
+        }
+    }
+
+    return flag;
 }

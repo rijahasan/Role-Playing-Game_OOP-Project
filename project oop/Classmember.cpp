@@ -1,7 +1,6 @@
 #include "Classmember.hpp"
 #include <iostream>
 
-
 void Classmember :: draw()
 {
     SDL_RenderCopy(Drawing::gRenderer, Drawing::assets, &srcRect, &moverRect);
@@ -32,14 +31,10 @@ void Classmember:: moveUp()
     else if (count == 1)
     {
         srcRect = {349, 268, 64, 82};
-        count++;
-    }
-    else if (count == 2)
-    {
-        srcRect = {251, 277, 62, 80};
+        //count++;
         count = 0;
     }
-    moverRect.y += 10;
+    moverRect.y -= 10;
 }
 void Classmember:: moveLeft()
 {
@@ -65,20 +60,16 @@ void Classmember:: moveDown()
     else if (count == 1)
     {
         srcRect = {64, 255, 53, 68};
-        count ++;
-    }
-    else if (count == 2)
-    {
-        srcRect = {65, 162, 54, 82};
+        //count ++;
         count = 0;
     }
-    moverRect.y -= 10;
+
+    moverRect.y += 10;
 }
 
 
 void Classmember:: movement(SDL_Keycode key)
 {
-    // if (moverRect.x-10<=100+90 && moverRect.x+10+ 120);
     if (key == SDLK_UP) //when up pressed
     {
         makeMove(1);

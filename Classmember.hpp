@@ -1,13 +1,11 @@
 #include<SDL.h>
 #include "drawing.hpp"
-#include "interactions.hpp"
-
+#include <list>
 //#include <string>
 #pragma once
 
 class Classmember{
-    protected:
-    interactions I;
+
     public:
     //string Name;
     SDL_Rect srcRect, moverRect;
@@ -19,7 +17,7 @@ class Classmember{
     void makeMove(int);
     Classmember();
     ~Classmember();
-    void movement(SDL_Keycode);
-    // virtual void addinteraction() = 0;
-    virtual void draw();
+    void movement(SDL_Keycode );
+    virtual void draw() = 0;
+
 };
