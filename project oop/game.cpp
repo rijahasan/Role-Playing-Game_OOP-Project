@@ -139,24 +139,27 @@ void Game::run( )
 
         while (SDL_PollEvent(&e) != 0)
         {
+			if( e.type == SDL_QUIT )
+			{
+				quit = true;
+			}
+
             if (e.type == SDL_MOUSEBUTTONDOWN)
             {
                 SDL_GetMouseState(&xMouse, &yMouse);
                 cout << xMouse << " & " << yMouse << endl;
 
-                if (xMouse > 441 && xMouse < 554 && yMouse > 412 && yMouse < 492)
+                if (xMouse > 454 && xMouse < 548 && yMouse > 338 && yMouse < 397)		//for play buttons
                 {
-
                     quit = false;
                     check = true;
-				    gTexture = loadTexture("mainscreen.png");
+				    gTexture = loadTexture("background.png");
                 }
-
-                if (xMouse > 1045 && xMouse < 1165 && yMouse > 164 && yMouse < 253)
-                {
-                    quit = true;
-                    check = true;
-                }
+                // if (xMouse > 1045 && xMouse < 1165 && yMouse > 164 && yMouse < 253)		for instructions buttons
+                // {
+                //     quit = true;
+                //     check = true;
+                // }
             }
         }
     }
