@@ -1,10 +1,6 @@
 #include "Classmember.hpp"
 #include <iostream>
 
-void Classmember :: draw()
-{
-    SDL_RenderCopy(Drawing::gRenderer, Drawing::assets, &srcRect, &moverRect);
-}
 
 void Classmember:: moveRight()
 {

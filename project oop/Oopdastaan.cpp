@@ -43,17 +43,18 @@ void Oopdastaan::createDesks()
     // cout<<d8->returnCoordinates();
 }
 void Oopdastaan :: createStudents(){
-    C[0] = new faculty(470, 0);
-    C[1] = new students(130,490);
-    C[2] = new students(810, 490);
-    C[3] = new students(320, 390);
-    C[4] = new students(620,390);
-    C[5] = new students(80, 290);
-    C[6] = new students(860, 290);
-    C[7] = new students(310, 190);
-    C[8] = new students(630, 190);
-    //s9 = new students(20, 510);
+    C[0] = new faculty(470, 0);      
+    C[1] = new students({639, 480, 81, 179}, {936, 480, 79, 179}, 130,490);       //hammad
+    C[2] = new students({956, 1507, 115, 224}, {1251, 1507, 115, 224}, 810, 490);      //flash
+    C[3] = new students({56, 1563, 137, 168}, {351, 1563, 137, 168}, 320, 390);      //sidra
+    C[4] = new students({539, 1280, 112, 191}, {834, 1280, 114, 191}, 620,390);
+    C[5] = new students({79, 983, 70, 169}, {373, 983, 70, 168}, 80, 290);
+    C[6] = new students({632, 968, 91, 188}, {927, 968, 92, 188}, 860, 290);
+    C[7] = new students({67,720, 93, 180},{363, 720, 91, 180}, 310, 190);       //hamza
 
+    // ({0,0,0,0}, {834, 1280, 114, 191}, 310, 190);       //dude w fanny bag
+    C[8] = new students({0,0,0,0}, {956, 726, 92, 157}, 630, 190);      //pink gal
+    //s9 = new students(20, 510);
 }
 
 SDL_Rect Oopdastaan ::  Collision(students* mainStudent, SDL_Keycode key){

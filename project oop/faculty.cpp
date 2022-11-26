@@ -13,3 +13,9 @@ faculty :: faculty(int x, int y)
     moverRect = {x, y, 60, 75};
 }
 
+void faculty :: draw()
+{
+    SDL_RenderCopy(Drawing::gRenderer, Drawing::assets, &srcRect, &moverRect);
+}
+
+

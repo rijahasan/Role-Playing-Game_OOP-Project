@@ -8,6 +8,6 @@ class faculty : public Classmember {
     faculty();
     faculty(int, int);
     ~faculty();
-
+    void draw();
 };
  

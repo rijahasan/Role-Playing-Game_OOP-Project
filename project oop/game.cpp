@@ -6,6 +6,7 @@
 
 SDL_Renderer* Drawing::gRenderer = NULL;
 SDL_Texture* Drawing::assets = NULL;
+SDL_Texture* Drawing::classmates = NULL;
 
 bool Game::init()
 {
@@ -69,8 +70,9 @@ bool Game::loadMedia()
 	bool success = true;
 	
 	Drawing::assets = loadTexture("assets.png");
+	Drawing::classmates = loadTexture("classmates.png");
     gTexture = loadTexture("mainscreen.png");
-	if(Drawing::assets==NULL || gTexture==NULL)
+	if(Drawing::classmates==NULL || Drawing::assets==NULL || gTexture==NULL)
     {
         printf("Unable to run due to error: %s\n",SDL_GetError());
         success =false;
@@ -82,7 +84,9 @@ void Game::close()
 {
 	//Free loaded images
 	SDL_DestroyTexture(Drawing::assets);
+	SDL_DestroyTexture(Drawing::classmates);
 	Drawing::assets=NULL;
+	Drawing::classmates=NULL;
 	SDL_DestroyTexture(gTexture);
 	
 	//Destroy window
@@ -127,7 +131,7 @@ void Game::run( )
 	SDL_Event e;
 	Oopdastaan oopmania;
 	students* s9;	//main character
-	s9 = new students(20, 510);
+	s9 = new students(20, 510);		
 	oopmania.createDesks();
 	oopmania.createStudents();
 

@@ -10,9 +10,13 @@ class students : public Classmember{
     public:
     students();
     SDL_Rect getter() const;
-    students(int, int);
+    students(SDL_Rect, SDL_Rect, int, int);
+    students(int, int);     //constructor overloading, the srcRect for main is only one defined
+    bool ismaincharacter=false;         //checks if the created is main character
+    void draw();
     ~students();
-    void addinteraction(SDL_Rect, SDL_Rect);
+    bool turned=false;   //if the student is turned or not
+    // void addinteraction(SDL_Rect&, SDL_Rect&);
 
 
 };
