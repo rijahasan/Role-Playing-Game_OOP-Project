@@ -23,7 +23,7 @@ class Game{
 public:
 
 
-
+    bool check=false;
     bool init();
     bool loadMedia();
     void close();

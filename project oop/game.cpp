@@ -69,7 +69,7 @@ bool Game::loadMedia()
 	bool success = true;
 	
 	Drawing::assets = loadTexture("assets.png");
-    gTexture = loadTexture("background.png");
+    gTexture = loadTexture("mainscreen.png");
 	if(Drawing::assets==NULL || gTexture==NULL)
     {
         printf("Unable to run due to error: %s\n",SDL_GetError());
@@ -130,7 +130,37 @@ void Game::run( )
 	s9 = new students(20, 510);
 	oopmania.createDesks();
 	oopmania.createStudents();
-	
+
+    while (!check)
+    {
+        SDL_RenderCopyEx(Drawing::gRenderer, gTexture, NULL, NULL, 0, 0, SDL_FLIP_NONE);
+        SDL_RenderPresent(Drawing::gRenderer);
+        int xMouse, yMouse;
+
+        while (SDL_PollEvent(&e) != 0)
+        {
+            if (e.type == SDL_MOUSEBUTTONDOWN)
+            {
+                SDL_GetMouseState(&xMouse, &yMouse);
+                cout << xMouse << " & " << yMouse << endl;
+
+                if (xMouse > 441 && xMouse < 554 && yMouse > 412 && yMouse < 492)
+                {
+
+                    quit = false;
+                    check = true;
+				    gTexture = loadTexture("mainscreen.png");
+                }
+
+                if (xMouse > 1045 && xMouse < 1165 && yMouse > 164 && yMouse < 253)
+                {
+                    quit = true;
+                    check = true;
+                }
+            }
+        }
+    }
+
 	// int bee_frame;
 	while( !quit )
 	{
