@@ -56,6 +56,11 @@ bool Game::init()
 					printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
 					success = false;
 				}
+				if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+                {
+                    printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
+                    success = false;
+                } 
 
 			}
 		}
@@ -77,6 +82,24 @@ bool Game::loadMedia()
         printf("Unable to run due to error: %s\n",SDL_GetError());
         success =false;
     }
+	bgMusic = Mix_LoadMUS("pink-panther-6836.mp3");
+    RightansMusic = Mix_LoadWAV("Winner Sms.mp3");
+    //WrongansMusic = Mix_LoadWAV("negative_beeps-6008.mp3");
+    if (bgMusic == NULL)
+    {
+        printf("Unable to load music: %s \n", Mix_GetError());
+        success = false;
+    }
+    if (RightansMusic == NULL)
+    {
+        printf("Unable to load crash music: %s \n", Mix_GetError());
+        success = false;
+    }
+    /* if (WrongansMusic == NULL)
+    {
+        printf("Unable to load life music: %s \n", Mix_GetError());
+        success = false;
+    } */ 
 	return success;
 }
 
@@ -85,6 +108,12 @@ void Game::close()
 	//Free loaded images
 	SDL_DestroyTexture(Drawing::assets);
 	SDL_DestroyTexture(Drawing::classmates);
+	Mix_FreeChunk(RightansMusic);
+	//Mix_FreeChunk(WrongansMusic);
+	RightansMusic = NULL;
+	//WrongansMusic = NULL;
+	
+
 	Drawing::assets=NULL;
 	Drawing::classmates=NULL;
 	SDL_DestroyTexture(gTexture);
@@ -94,8 +123,11 @@ void Game::close()
 	SDL_DestroyWindow( gWindow );
 	gWindow = NULL;
 	Drawing::gRenderer = NULL;
+	Mix_FreeMusic(bgMusic);
+	bgMusic = NULL;
 	//Quit SDL subsystems
 	IMG_Quit();
+	Mix_Quit();
 	SDL_Quit();
 }
 
@@ -197,6 +229,11 @@ void Game::run( )
 			}
 			
 		}
+		if (Mix_PlayingMusic() == 0)
+        {
+            Mix_PlayMusic(bgMusic, 2);
+            int Mix_VolumeMusic(30);
+        }
 
 		SDL_RenderClear(Drawing::gRenderer); //removes everything from renderer
 		SDL_RenderCopy(Drawing::gRenderer, gTexture, NULL, NULL);//Draws background to renderer

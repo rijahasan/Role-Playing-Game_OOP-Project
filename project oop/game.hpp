@@ -1,6 +1,7 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_mixer.h>
 #include <stdio.h>
 #include <iostream>
 #include <string>
@@ -18,6 +19,9 @@ class Game{
 
     //Current displayed texture
     SDL_Texture* gTexture = NULL;
+    Mix_Music *bgMusic = NULL;
+    Mix_Chunk *RightansMusic = NULL;
+    Mix_Chunk *WrongansMusic = NULL;
     
 
 public:
