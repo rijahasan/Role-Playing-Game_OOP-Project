@@ -18,7 +18,7 @@ desk :: desk(int x, int y)
     moverRect = {x, y, 120, 90};
 }
 
-SDL_Rect desk :: getter() const
+SDL_Rect desk :: getter()
 {
     return moverRect;
 }

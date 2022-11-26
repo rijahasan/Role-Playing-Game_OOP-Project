@@ -199,12 +199,12 @@ void Game::run( )
             }
         }
     }
+	bool collided = false;
+	SDL_Rect deskcollided;
 
 	// int bee_frame;
 	while( !quit )
 	{
-		bool collided = false;
-		SDL_Rect deskcollided;
 		//Handle events on queue
 		while( SDL_PollEvent( &e ) != 0 )
 		{
@@ -215,8 +215,11 @@ void Game::run( )
 			}
 			
 			if(e.type == SDL_KEYDOWN){
-					if (collided == true and e.key.keysym.scancode!=SDL_SCANCODE_X)		///checks if the collision was true in the last iteration
-						continue;		//implement textbox				
+					if (collided == true )	{	///checks if the collision was true in the last iteration
+						oopmania.turnstudentAtDesk(deskcollided);		//implement textbox	
+						collided = false;
+					}		
+					// and e.key.keysym.scancode==SDL_SCANCODE_X
 					else if (e.key.keysym.sym==SDLK_LEFT || e.key.keysym.sym==SDLK_RIGHT ||  e.key.keysym.sym==SDLK_DOWN || e.key.keysym.sym==SDLK_UP){
 						deskcollided  = oopmania.Collision(s9, e.key.keysym.sym);
 						if (deskcollided.x==0 && deskcollided.y==0 && deskcollided.w==0 && deskcollided.h==0)		//condition for no collision

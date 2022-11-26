@@ -27,7 +27,7 @@ class Oopdastaan{
     void createStudents();
     SDL_Rect Collision(students*, SDL_Keycode);     //returns the desk of collision
     void createDesks();
-
+    void turnstudentAtDesk(SDL_Rect);
     ~Oopdastaan();
     
 };

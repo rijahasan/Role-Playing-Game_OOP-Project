@@ -17,6 +17,7 @@ class Classmember{
     void moveRight();
     void moveLeft();
     void makeMove(int);
+    bool turned=false;      //if the class member is turned or not
     Classmember();
     ~Classmember();
     void movement(SDL_Keycode);

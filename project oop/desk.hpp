@@ -7,7 +7,7 @@ class desk{
 
     public:
     void draw();
-    SDL_Rect getter() const;
+    SDL_Rect getter();
     desk();
     desk(int, int);
     ~desk();

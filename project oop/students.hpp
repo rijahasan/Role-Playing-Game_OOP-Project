@@ -15,7 +15,6 @@ class students : public Classmember{
     bool ismaincharacter=false;         //checks if the created is main character
     void draw();
     ~students();
-    bool turned=false;   //if the student is turned or not
     // void addinteraction(SDL_Rect&, SDL_Rect&);
 
 

@@ -29,10 +29,12 @@ void students :: draw()
 {
     if (ismaincharacter==true)
         SDL_RenderCopy(Drawing::gRenderer, Drawing::assets, &srcRect, &moverRect);
-    if (turned==false)
-        SDL_RenderCopy(Drawing::gRenderer, Drawing::classmates, &srcRectB, &moverRect);
-    else
-        SDL_RenderCopy(Drawing::gRenderer, Drawing::classmates, &srcRectF, &moverRect);
+   else {
+        if (turned==false)
+            SDL_RenderCopy(Drawing::gRenderer, Drawing::classmates, &srcRectB, &moverRect);
+        else
+            SDL_RenderCopy(Drawing::gRenderer, Drawing::classmates, &srcRectF, &moverRect);
+        }
 }
 
 
