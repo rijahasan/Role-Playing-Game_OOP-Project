@@ -22,3 +22,7 @@ SDL_Rect desk :: getter() const
 {
     return moverRect;
 }
+
+desk :: ~desk(){
+    
+}

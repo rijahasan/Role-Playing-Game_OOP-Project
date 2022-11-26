@@ -1,9 +1,5 @@
 #include "students.hpp"
 
-void students :: draw()
-{
-    SDL_RenderCopy(Drawing::gRenderer, Drawing::assets, &srcRect, &moverRect);
-}
 
 students :: students()
 {

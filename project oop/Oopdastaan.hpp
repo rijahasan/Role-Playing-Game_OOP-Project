@@ -17,23 +17,15 @@ class Oopdastaan{
     vector <bee*> bees;
     vector<butterfly*> butterflies;
     */
-    list <desk*> desks;
-   faculty* f1;
-   students* s1;
-   students* s2;
-   students* s3;
-   students* s4;
-   students* s5;
-   students* s6;
-   students* s7;
-   students* s8;
+    desk **D = new desk*[9];      //container of desks
+    Classmember **C = new Classmember*[9];      //container of classmembers
    //students* s9;
 
     public:
 
     void drawObjects(); 
     void createStudents();
-    bool Collision(students*, SDL_Keycode);
+    SDL_Rect Collision(students*, SDL_Keycode);     //returns the desk of collision
     void createDesks();
 
     ~Oopdastaan();

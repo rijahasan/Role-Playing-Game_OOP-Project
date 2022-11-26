@@ -8,7 +8,6 @@ using namespace std;
 class students : public Classmember{
 
     public:
-    void draw();
     students();
     SDL_Rect getter() const;
     students(int, int);

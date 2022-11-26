@@ -5,7 +5,6 @@
 class faculty : public Classmember {
 
     public:
-    void draw();
     faculty();
     faculty(int, int);
     ~faculty();

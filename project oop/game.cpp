@@ -134,6 +134,8 @@ void Game::run( )
 	// int bee_frame;
 	while( !quit )
 	{
+		bool collided = false;
+		SDL_Rect deskcollided;
 		//Handle events on queue
 		while( SDL_PollEvent( &e ) != 0 )
 		{
@@ -142,19 +144,19 @@ void Game::run( )
 			{
 				quit = true;
 			}
-
+			
 			if(e.type == SDL_KEYDOWN){
-			//this is a good location of character.
-				bool s = false;
-				s  = oopmania.Collision(s9, e.key.keysym.sym);
-					if (s == true and e.key.keysym.scancode!=SDL_SCANCODE_X)
-					{
-						continue;						
+					if (collided == true and e.key.keysym.scancode!=SDL_SCANCODE_X)		///checks if the collision was true in the last iteration
+						continue;		//implement textbox				
+					else if (e.key.keysym.sym==SDLK_LEFT || e.key.keysym.sym==SDLK_RIGHT ||  e.key.keysym.sym==SDLK_DOWN || e.key.keysym.sym==SDLK_UP){
+						deskcollided  = oopmania.Collision(s9, e.key.keysym.sym);
+						if (deskcollided.x==0 && deskcollided.y==0 && deskcollided.w==0 && deskcollided.h==0)		//condition for no collision
+							collided=false;
+						else
+							collided=true;
+						if (collided == false)
+							s9->movement(e.key.keysym.sym);
 					}
-					else if (s == false ){
-						s9->movement(e.key.keysym.sym);
-					}
-				
 			}
 			
 		}

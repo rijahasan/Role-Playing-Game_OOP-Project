@@ -21,5 +21,5 @@ class Classmember{
     ~Classmember();
     void movement(SDL_Keycode);
     // virtual void addinteraction() = 0;
-    virtual void draw();
+    void draw();
 };

@@ -1,11 +1,6 @@
 #include "faculty.hpp"
 #pragma once
 
-void faculty :: draw()
-{
-    SDL_RenderCopy(Drawing::gRenderer, Drawing::assets, &srcRect, &moverRect);
-}
-
 faculty :: faculty()
 {
     srcRect = {426, 157, 61, 94};
