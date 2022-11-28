@@ -7,6 +7,10 @@
 #include <string>
 #include <stdlib.h>
 #include <time.h>
+#include "SDL_ttf.h"
+#include "Text.hpp"
+#include "drawing.hpp"
+
 #pragma once
 
 class Game{
@@ -26,7 +30,7 @@ class Game{
 
 public:
 
-
+    
     bool check=false;
     bool init();
     bool loadMedia();

@@ -1,7 +1,4 @@
 #include<SDL.h>
-//#include "pigeon.hpp"
-//#include "bee.hpp"
-//#include "butterfly.hpp"
 #include <SDL_image.h>
 #include "Classmember.hpp"
 #include "faculty.hpp"
@@ -9,6 +6,8 @@
 #include "desk.hpp"
 #include<vector>
 #include<list>
+#include<list>
+
 using namespace std;
 
 class Oopdastaan{

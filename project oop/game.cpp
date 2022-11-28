@@ -2,11 +2,14 @@
 #include "Oopdastaan.hpp"
 #include "drawing.hpp"
 #include "students.hpp"
+#include <string>
+#include <SDL_ttf.h>
 
 
 SDL_Renderer* Drawing::gRenderer = NULL;
 SDL_Texture* Drawing::assets = NULL;
 SDL_Texture* Drawing::classmates = NULL;
+
 
 bool Game::init()
 {
@@ -61,10 +64,16 @@ bool Game::init()
                     printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
                     success = false;
                 } 
+				// if (TTF_Init()==-1){
+				// 	printf( "TTF could not initialize!" );
+				// 	}
+
 
 			}
 		}
 	}
+	// printf(TTF_Init() );
+		
 
 	return success;
 }
@@ -121,6 +130,7 @@ void Game::close()
 	//Destroy window
 	SDL_DestroyRenderer( Drawing::gRenderer );
 	SDL_DestroyWindow( gWindow );
+	SDL_DestroyTexture(gTexture);
 	gWindow = NULL;
 	Drawing::gRenderer = NULL;
 	Mix_FreeMusic(bgMusic);
@@ -129,6 +139,12 @@ void Game::close()
 	IMG_Quit();
 	Mix_Quit();
 	SDL_Quit();
+
+
+	delete WrongansMusic;
+	delete RightansMusic;
+	delete bgMusic;
+
 }
 
 SDL_Texture* Game::loadTexture( std::string path )
@@ -159,6 +175,7 @@ SDL_Texture* Game::loadTexture( std::string path )
 }
 void Game::run( )
 {
+
 	bool quit = false;
 	SDL_Event e;
 	Oopdastaan oopmania;
@@ -166,9 +183,11 @@ void Game::run( )
 	s9 = new students(20, 510);		
 	oopmania.createDesks();
 	oopmania.createStudents();
+	// Text text(Drawing::gRenderer, "arialbd.ttf", 15, "HAKUNA MATATA", {255,0,0,255});
 
     while (!check)
     {
+		
         SDL_RenderCopyEx(Drawing::gRenderer, gTexture, NULL, NULL, 0, 0, SDL_FLIP_NONE);
         SDL_RenderPresent(Drawing::gRenderer);
         int xMouse, yMouse;
@@ -205,6 +224,7 @@ void Game::run( )
 	// int bee_frame;
 	while( !quit )
 	{
+
 		//Handle events on queue
 		while( SDL_PollEvent( &e ) != 0 )
 		{
@@ -239,12 +259,12 @@ void Game::run( )
         }
 
 		SDL_RenderClear(Drawing::gRenderer); //removes everything from renderer
+				
 		SDL_RenderCopy(Drawing::gRenderer, gTexture, NULL, NULL);//Draws background to renderer
 		//***********************draw the objects here********************
 
 		oopmania.drawObjects();
 		s9->draw();
-
 
 		//****************************************************************
     	SDL_RenderPresent(Drawing::gRenderer); //displays the updated renderer
@@ -253,3 +273,5 @@ void Game::run( )
 	}
 			
 }
+
+
