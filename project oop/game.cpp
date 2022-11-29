@@ -9,6 +9,7 @@
 SDL_Renderer* Drawing::gRenderer = NULL;
 SDL_Texture* Drawing::assets = NULL;
 SDL_Texture* Drawing::classmates = NULL;
+SDL_Texture* Drawing::textboxes = NULL;
 
 
 bool Game::init()
@@ -85,8 +86,9 @@ bool Game::loadMedia()
 	
 	Drawing::assets = loadTexture("assets.png");
 	Drawing::classmates = loadTexture("classmates.png");
+	Drawing::textboxes = loadTexture("textbox.png");
     gTexture = loadTexture("mainscreen.png");
-	if(Drawing::classmates==NULL || Drawing::assets==NULL || gTexture==NULL)
+	if(Drawing::classmates==NULL || Drawing::assets==NULL || gTexture==NULL || Drawing::textboxes==NULL)
     {
         printf("Unable to run due to error: %s\n",SDL_GetError());
         success =false;
@@ -118,6 +120,8 @@ void Game::close()
 	SDL_DestroyTexture(Drawing::assets);
 	SDL_DestroyTexture(Drawing::classmates);
 	Mix_FreeChunk(RightansMusic);
+	SDL_DestroyTexture(Drawing::textboxes);
+
 	//Mix_FreeChunk(WrongansMusic);
 	RightansMusic = NULL;
 	//WrongansMusic = NULL;
@@ -125,6 +129,8 @@ void Game::close()
 
 	Drawing::assets=NULL;
 	Drawing::classmates=NULL;
+	Drawing::textboxes=NULL;
+
 	SDL_DestroyTexture(gTexture);
 	
 	//Destroy window
@@ -206,7 +212,6 @@ void Game::run( )
 
                 if (xMouse > 454 && xMouse < 548 && yMouse > 338 && yMouse < 397)		//for play buttons
                 {
-                    quit = false;
                     check = true;
 				    gTexture = loadTexture("background.png");
                 }
@@ -218,6 +223,7 @@ void Game::run( )
             }
         }
     }
+	textbox trial;
 	bool collided = false;
 	SDL_Rect deskcollided;
 
@@ -235,10 +241,10 @@ void Game::run( )
 			}
 			
 			if(e.type == SDL_KEYDOWN){
-					if (collided == true )	{	///checks if the collision was true in the last iteration
-						oopmania.turnstudentAtDesk(deskcollided);		//implement textbox	
+					if (collided == true && e.key.keysym.sym== SDLK_x)	{	///checks if the collision was true in the last iteration
+						oopmania.turnstudentAtDesk(deskcollided);		//implement textbox
 						collided = false;
-					}		
+					}
 					// and e.key.keysym.scancode==SDL_SCANCODE_X
 					else if (e.key.keysym.sym==SDLK_LEFT || e.key.keysym.sym==SDLK_RIGHT ||  e.key.keysym.sym==SDLK_DOWN || e.key.keysym.sym==SDLK_UP){
 						deskcollided  = oopmania.Collision(s9, e.key.keysym.sym);
@@ -265,6 +271,7 @@ void Game::run( )
 
 		oopmania.drawObjects();
 		s9->draw();
+		trial.draw();
 
 		//****************************************************************
     	SDL_RenderPresent(Drawing::gRenderer); //displays the updated renderer

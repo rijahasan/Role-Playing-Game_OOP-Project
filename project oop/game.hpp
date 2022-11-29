@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "SDL_ttf.h"
-#include "Text.hpp"
+#include "textbox.hpp"
 #include "drawing.hpp"
 
 #pragma once

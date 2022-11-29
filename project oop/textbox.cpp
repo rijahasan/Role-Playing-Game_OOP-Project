@@ -4,14 +4,14 @@
 
 void textbox :: draw ()
 {
-     SDL_RenderCopy(Drawing::gRenderer, Drawing::assets, &srcRect, &moverRect);
+     SDL_RenderCopy(Drawing::gRenderer, Drawing::textboxes, &srcRect, &moverRect);
 }
 
 
 textbox :: textbox()
 {
-    srcRect = {226, 122, 179, 129};
-    moverRect = {5, 400, 120, 90};
+    srcRect = {21, 29, 752, 134};
+    moverRect = {5, 5, 752, 134};
 }
 
 textbox :: textbox(SDL_Rect src, SDL_Rect mover)

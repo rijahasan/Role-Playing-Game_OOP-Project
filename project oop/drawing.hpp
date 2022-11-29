@@ -8,4 +8,6 @@ class Drawing{
 
     static SDL_Texture* assets;
     static SDL_Texture* classmates;
+    static SDL_Texture* textboxes;
+
 };
