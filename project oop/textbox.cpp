@@ -1,3 +1,4 @@
+#pragma once
 #include<SDL.h>
 #include "textbox.hpp"
 
@@ -6,6 +7,9 @@ void textbox :: draw ()
 {
      SDL_RenderCopy(Drawing::gRenderer, Drawing::textboxes, &srcRect, &moverRect);
 }
+
+
+
 
 
 textbox :: textbox()

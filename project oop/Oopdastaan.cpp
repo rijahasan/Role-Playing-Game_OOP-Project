@@ -6,6 +6,7 @@ using namespace std;
 void Oopdastaan::drawObjects()
 {
     C[0]->draw();
+    interacted[0]=false; 
     for (int i=0;i<9;i++)
         D[i]->draw();
     for (int i=1;i<9;i++){
@@ -35,7 +36,7 @@ void Oopdastaan::createDesks()
 {
     //std::cout << "Mouse clicked at: " << x << " -- " << y << std::endl;
 	D[1] = new desk(100, 450);      //1     the index of desk and student are same
-    D[0] = new desk(440, 35);       //F
+    D[0] = new desk(440, 45);       //F
 	D[2] = new desk(780, 450);      //2
 	D[3] = new desk(290, 350);      //3
 	D[4] = new desk(590, 350);      //4
@@ -58,6 +59,13 @@ void Oopdastaan :: createStudents(){
     // ({0,0,0,0}, {834, 1280, 114, 191}, 310, 190);       //dude w fanny bag
     C[8] = new students({650,726,92,157}, {956, 726, 92, 157}, 650, 240);      //pink gal
     //s9 = new students(20, 510);
+    C[0]->addinteraction({2021, 29, 752, 134}, {560, 15, 260, 46});
+    C[0]->addinteraction({2898, 29, 752, 134}, {560, 15, 260, 46});
+    C[0]->addinteraction({2021, 231, 752, 134}, {560, 15, 260, 46});
+    C[0]->addinteraction({2898, 231, 752, 134}, {560, 15, 260, 46});
+
+
+
     C[1]->addinteraction({21, 3032, 752, 133}, {50, 400, 260, 46});
     C[1]->addinteraction({898, 3031, 752, 133} , {40, 400, 260, 46});
     C[1]->addinteraction({21, 3232, 751, 133} , {50, 400, 260, 46});
@@ -66,9 +74,18 @@ void Oopdastaan :: createStudents(){
     C[3]->addinteraction({21, 3632, 752, 134},{328, 320, 260, 46}) ;
     C[3]->addinteraction({898, 3631, 752, 133},{328, 320, 260, 46}) ;
     C[3]->addinteraction({21, 3833, 752, 133},{328, 320, 260, 46}) ;
+    C[4]->addinteraction({21, 4231, 752, 134}, {620, 370, 260, 46});
+    C[5]->addinteraction({21, 4431, 752, 133}, {80, 350, 260, 46});
+    C[5]->addinteraction({898, 4431, 752, 133}, {80, 350, 260, 46});
+    C[5]->addinteraction({21, 4631, 752, 134}, {80, 350, 260, 46});
+    C[5]->addinteraction({898, 4631, 752, 134}, {80, 350, 260, 46});
+    C[7]->addinteraction({21,1032,752,133}, {310, 160, 260, 46});
+    C[7]->addinteraction({898,1039,752,129}, {310, 160, 260, 46});
+    C[7]->addinteraction({21,1232,752,133}, {310, 160, 260, 46});
+    C[7]->addinteraction({898,1231,752,133}, {310, 160, 260, 46});
+    C[7]->addinteraction({21,1432,752,134}, {310, 160, 260, 46});
+
     
-
-
 }
               //adds interactions of classmates
 //Hammad: {21, 3032, 752, 133} {898, 3031, 752, 133} {21, 3232, 751, 133} {898,3231, 752,133} {21,3432,752,134}
@@ -114,6 +131,9 @@ bool Oopdastaan :: turnstudentAtDesk(SDL_Rect dsk){ //this function turns the st
             break;
         }   
     }
+    if (i==0){
+        isfaculty=true;
+    }
     // C[i]->
     if (interacted[i]==true){
         C[i]->turned=false;
@@ -134,6 +154,10 @@ bool Oopdastaan :: interact(bool Cont){     //checks whether to move on to next 
     return false;
 
 }
+bool Oopdastaan ::  Isfaculty(){
+    return isfaculty;
+}
+
 
 Oopdastaan:: ~Oopdastaan()
 {

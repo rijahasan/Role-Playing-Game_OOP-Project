@@ -21,7 +21,7 @@ class Oopdastaan{
    //students* s9;
     bool* interacted= new bool[9];
     int nextinteraction;
-
+    bool isfaculty=false;
     public:
 
     void drawObjects(); 
@@ -31,5 +31,5 @@ class Oopdastaan{
     bool interact(bool);
     bool turnstudentAtDesk(SDL_Rect);
     ~Oopdastaan();
-    
+    bool Isfaculty();
 };

@@ -4,12 +4,19 @@
 #include "students.hpp"
 #include <string>
 #include <SDL_ttf.h>
+#include "Time.hpp"
+#include <iomanip>
+#include <iostream>
+#include <stdlib.h>
+#include <unistd.h>
 
 
 SDL_Renderer* Drawing::gRenderer = NULL;
 SDL_Texture* Drawing::assets = NULL;
 SDL_Texture* Drawing::classmates = NULL;
 SDL_Texture* Drawing::textboxes = NULL;
+SDL_Texture* Drawing::lentime = NULL;
+
 
 
 bool Game::init()
@@ -87,8 +94,11 @@ bool Game::loadMedia()
 	Drawing::assets = loadTexture("assets.png");
 	Drawing::classmates = loadTexture("classmates.png");
 	Drawing::textboxes = loadTexture("textbox.png");
-    gTexture = loadTexture("mainscreen.png");
-	if(Drawing::classmates==NULL || Drawing::assets==NULL || gTexture==NULL || Drawing::textboxes==NULL)
+	Drawing::lentime = loadTexture("len_time_window.png");
+	
+	gTexture = loadTexture("mainscreen.png");
+
+	if(Drawing::lentime == NULL || Drawing::classmates==NULL || Drawing::assets==NULL || gTexture==NULL || Drawing::textboxes==NULL)
     {
         printf("Unable to run due to error: %s\n",SDL_GetError());
         success =false;
@@ -117,6 +127,7 @@ bool Game::loadMedia()
 void Game::close()
 {
 	//Free loaded images
+	SDL_DestroyTexture(Drawing::lentime);
 	SDL_DestroyTexture(Drawing::assets);
 	SDL_DestroyTexture(Drawing::classmates);
 	Mix_FreeChunk(RightansMusic);
@@ -130,6 +141,8 @@ void Game::close()
 	Drawing::assets=NULL;
 	Drawing::classmates=NULL;
 	Drawing::textboxes=NULL;
+	Drawing::lentime=NULL;
+	
 
 	SDL_DestroyTexture(gTexture);
 	
@@ -181,7 +194,7 @@ SDL_Texture* Game::loadTexture( std::string path )
 }
 void Game::run( )
 {
-
+	Time t;
 	bool quit = false;
 	SDL_Event e;
 	Oopdastaan oopmania;
@@ -229,6 +242,7 @@ void Game::run( )
 	SDL_Rect deskcollided;
 	bool InteractOrNot=false; 
 	bool continueinteract=false;
+	int seconds=0;		//starting second is 0 
 	// int bee_frame;
 	while( !quit )
 	{	//Handle events on queue
@@ -269,10 +283,20 @@ void Game::run( )
 					}
 			}
 		}
+		if (oopmania.Isfaculty()){
+			cout<<"Your Viva is starting! Buckly UP.";
+			sleep(1);
+			seconds++;
+		}
+		t.IncreaseTime(seconds);
 		SDL_RenderClear(Drawing::gRenderer); //removes everything from renderer				
 		SDL_RenderCopy(Drawing::gRenderer, gTexture, NULL, NULL);//Draws background to renderer
 		oopmania.drawObjects();
 		s9->draw();
+
+        // leniency meter: srcRect={35, 8, 130, 6}
+
+		t.draw();
 		if (InteractOrNot){
 			completed=oopmania.interact(continueinteract);
 			if (completed)
