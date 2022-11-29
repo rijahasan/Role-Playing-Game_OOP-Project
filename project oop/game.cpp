@@ -223,27 +223,39 @@ void Game::run( )
             }
         }
     }
+		bool completed=false;
 	textbox trial;
 	bool collided = false;
 	SDL_Rect deskcollided;
-
+	bool InteractOrNot=false; 
+	bool continueinteract=false;
 	// int bee_frame;
 	while( !quit )
-	{
-
-		//Handle events on queue
-		while( SDL_PollEvent( &e ) != 0 )
-		{
+	{	//Handle events on queue
+		while( SDL_PollEvent( &e ) != 0 ){
 			//User requests quit
-			if( e.type == SDL_QUIT )
-			{
+			if( e.type == SDL_QUIT ){
 				quit = true;
 			}
-			
 			if(e.type == SDL_KEYDOWN){
-					if (collided == true && e.key.keysym.sym== SDLK_x)	{	///checks if the collision was true in the last iteration
-						oopmania.turnstudentAtDesk(deskcollided);		//implement textbox
-						collided = false;
+					if (continueinteract && e.key.keysym.sym!=SDLK_x)
+						break;
+					else if (continueinteract && e.key.keysym.sym==SDLK_x){
+						continueinteract=false;
+						break;
+					}
+					if (collided == true && e.key.keysym.sym==SDLK_x)	{	///checks if the collision was true in the last iteration
+						InteractOrNot=oopmania.turnstudentAtDesk(deskcollided);		//implement textbox
+						if (InteractOrNot){	   //if true, interact
+							collided=true;		//remains collided
+							continueinteract=true;
+							break;
+						}
+						else{
+							collided = false; //when the interaction is done make it false	
+							cout<<"Already Interacted";
+							continueinteract=false;
+						}					
 					}
 					// and e.key.keysym.scancode==SDL_SCANCODE_X
 					else if (e.key.keysym.sym==SDLK_LEFT || e.key.keysym.sym==SDLK_RIGHT ||  e.key.keysym.sym==SDLK_DOWN || e.key.keysym.sym==SDLK_UP){
@@ -256,22 +268,24 @@ void Game::run( )
 							s9->movement(e.key.keysym.sym);
 					}
 			}
-			
 		}
-		if (Mix_PlayingMusic() == 0)
-        {
-            Mix_PlayMusic(bgMusic, 2);
-            int Mix_VolumeMusic(30);
-        }
-
-		SDL_RenderClear(Drawing::gRenderer); //removes everything from renderer
-				
+		SDL_RenderClear(Drawing::gRenderer); //removes everything from renderer				
 		SDL_RenderCopy(Drawing::gRenderer, gTexture, NULL, NULL);//Draws background to renderer
-		//***********************draw the objects here********************
-
 		oopmania.drawObjects();
 		s9->draw();
-		trial.draw();
+		if (InteractOrNot){
+			completed=oopmania.interact(continueinteract);
+			if (completed)
+				continueinteract=false;		//interaction completed
+			else
+				continueinteract=true;
+		}
+		// if (Mix_PlayingMusic() == 0)
+        // {
+        //     Mix_PlayMusic(bgMusic, 2);
+        //     int Mix_VolumeMusic(30);
+        // }
+		//***********************draw the objects here********************
 
 		//****************************************************************
     	SDL_RenderPresent(Drawing::gRenderer); //displays the updated renderer
@@ -280,5 +294,3 @@ void Game::run( )
 	}
 			
 }
-
-

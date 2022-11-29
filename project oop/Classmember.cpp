@@ -62,6 +62,18 @@ void Classmember:: moveDown()
 
     moverRect.y += 10;
 }
+void Classmember:: addinteraction(SDL_Rect src, SDL_Rect mover){
+    I.addtextbox(src,mover);
+}
+
+bool Classmember::  drawnextinteraction(){
+    return I.drawnexttextbox();
+}
+
+void Classmember :: drawinteraction(){
+    I.drawtextbox();
+}
+
 
 
 void Classmember:: movement(SDL_Keycode key)

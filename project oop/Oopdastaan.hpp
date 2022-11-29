@@ -1,3 +1,4 @@
+#pragma once
 #include<SDL.h>
 #include <SDL_image.h>
 #include "Classmember.hpp"
@@ -7,7 +8,6 @@
 #include<vector>
 #include<list>
 #include<list>
-
 using namespace std;
 
 class Oopdastaan{
@@ -19,6 +19,8 @@ class Oopdastaan{
     desk **D = new desk*[9];      //container of desks
     Classmember **C = new Classmember*[9];      //container of classmembers
    //students* s9;
+    bool* interacted= new bool[9];
+    int nextinteraction;
 
     public:
 
@@ -26,7 +28,8 @@ class Oopdastaan{
     void createStudents();
     SDL_Rect Collision(students*, SDL_Keycode);     //returns the desk of collision
     void createDesks();
-    void turnstudentAtDesk(SDL_Rect);
+    bool interact(bool);
+    bool turnstudentAtDesk(SDL_Rect);
     ~Oopdastaan();
     
 };

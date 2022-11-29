@@ -12,7 +12,7 @@
 #include "drawing.hpp"
 
 #pragma once
-
+using namespace std;
 class Game{
     //Screen dimension constants
     const int SCREEN_WIDTH = 1000;

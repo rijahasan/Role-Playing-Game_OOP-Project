@@ -15,7 +15,5 @@ class students : public Classmember{
     bool ismaincharacter=false;         //checks if the created is main character
     void draw();
     ~students();
-    // void addinteraction(SDL_Rect&, SDL_Rect&);
-
 
 };

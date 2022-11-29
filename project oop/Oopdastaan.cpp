@@ -8,8 +8,10 @@ void Oopdastaan::drawObjects()
     C[0]->draw();
     for (int i=0;i<9;i++)
         D[i]->draw();
-    for (int i=1;i<9;i++)
+    for (int i=1;i<9;i++){
         C[i]->draw();
+        interacted[i]=false;        //interaction has not happened
+    }
     //s9->draw();
    /*  SDL_Event ev;
     while( SDL_PollEvent( &ev ) != 0)
@@ -56,8 +58,24 @@ void Oopdastaan :: createStudents(){
     // ({0,0,0,0}, {834, 1280, 114, 191}, 310, 190);       //dude w fanny bag
     C[8] = new students({650,726,92,157}, {956, 726, 92, 157}, 650, 240);      //pink gal
     //s9 = new students(20, 510);
-}
+    C[1]->addinteraction({21, 3032, 752, 133}, {50, 400, 260, 46});
+    C[1]->addinteraction({898, 3031, 752, 133} , {40, 400, 260, 46});
+    C[1]->addinteraction({21, 3232, 751, 133} , {50, 400, 260, 46});
+    C[1]->addinteraction({898,3231, 752,133} , {50, 400, 260, 46});
+    C[1]->addinteraction({21,3432,752,134}, {50, 400, 260, 46});    
+    C[3]->addinteraction({21, 3632, 752, 134},{328, 320, 260, 46}) ;
+    C[3]->addinteraction({898, 3631, 752, 133},{328, 320, 260, 46}) ;
+    C[3]->addinteraction({21, 3833, 752, 133},{328, 320, 260, 46}) ;
+    
 
+
+}
+              //adds interactions of classmates
+//Hammad: {21, 3032, 752, 133} {898, 3031, 752, 133} {21, 3232, 751, 133} {898,3231, 752,133} {21,3432,752,134}
+//     Sidra :  21, 3632, 752, 134    –  898, 3631, 752, 133 –  21, 3833, 752, 133
+// Shaheer: 21, 4231, 752, 134
+//hamza: {21,1032,752,133}{898,1039,752,129}{21,1232,752,133}{898,1231,752,133}{21,1432,752,134}
+// Alizain: 21, 4431, 752, 133 – 898, 4431, 752, 133 – 21, 4631, 752, 134 – 898, 4631, 752, 134
 SDL_Rect Oopdastaan ::  Collision(students* mainStudent, SDL_Keycode key){
     SDL_Rect stud = mainStudent->getter();
     for (int i=0;i<9;i++)
@@ -87,13 +105,34 @@ SDL_Rect Oopdastaan ::  Collision(students* mainStudent, SDL_Keycode key){
 	}
 return {0,0,0,0};
 }
-void Oopdastaan :: turnstudentAtDesk(SDL_Rect dsk){ //this function turns the student at a particular desk whne the user presses x near it
-    for (int i=0;i<9;i++){
+bool Oopdastaan :: turnstudentAtDesk(SDL_Rect dsk){ //this function turns the student at a particular desk whne the user presses x near it
+    int i=0;
+    for (;i<9;i++){
         SDL_Rect nextdesk=D[i]->getter();
         if (dsk.x==nextdesk.x && dsk.y==nextdesk.y && dsk.w==nextdesk.w && dsk.h==nextdesk.h){
             C[i]->turned=true;
-        }
+            break;
+        }   
     }
+    // C[i]->
+    if (interacted[i]==true){
+        C[i]->turned=false;
+        return false;       //if the student is already interacted with, then returns false
+    }
+    else 
+        nextinteraction=i;
+    return true;
+}
+
+bool Oopdastaan :: interact(bool Cont){     //checks whether to move on to next statement
+    if (!Cont)
+        interacted[nextinteraction] = C[nextinteraction]->drawnextinteraction();        //if the textboxes are empty then interaction complete and true is returned
+    else
+        C[nextinteraction]->drawinteraction();
+    if (interacted[nextinteraction])
+        return true;        //interaction completed
+    return false;
+
 }
 
 Oopdastaan:: ~Oopdastaan()
@@ -104,6 +143,7 @@ Oopdastaan:: ~Oopdastaan()
     for (int i=0;i<9;i++)
         delete C[i];
     delete [] C;
+    delete [] interacted;
     /*
     for (int i = 0; i < pigeons.size(); i++) //this deletes all the pointers of vector and then clears the vector
     {

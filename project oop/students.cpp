@@ -38,5 +38,4 @@ void students :: draw()
 }
 
 
-// void students :: addinteraction(SDL_rect src, SDL_rect mover){
-//     I.addtextbox(src,mover);
+
