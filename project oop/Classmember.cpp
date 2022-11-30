@@ -74,6 +74,10 @@ void Classmember :: drawinteraction(){
     I.drawtextbox();
 }
 
+bool Classmember :: viva(){
+    return false;
+}
+
 
 
 void Classmember:: movement(SDL_Keycode key)

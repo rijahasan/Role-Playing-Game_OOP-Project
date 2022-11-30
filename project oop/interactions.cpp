@@ -15,6 +15,7 @@ bool interactions :: drawnexttextbox(){
     if (textboxes.empty()==false) //checks if the vector is empty
     {
         textboxes[0]->draw();
+        count++;
         textboxes.erase(textboxes.begin());
         return false;       //interaction has not been completed
     }
@@ -24,6 +25,11 @@ bool interactions :: drawnexttextbox(){
 void interactions :: drawtextbox(){
     textboxes[0]->draw();
 }
+
+int interactions :: getcount(){
+    return count;
+}
+
 interactions :: ~interactions(){
     
 }

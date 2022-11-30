@@ -1,0 +1,31 @@
+#include "drawelements.hpp"
+
+void drawelements :: draw (char a){
+    switch(a){
+        case 'I':
+            SDL_RenderCopy(Drawing::gRenderer, Drawing::white, &whitesrc, &Instructionsmover);
+            SDL_RenderCopy(Drawing::gRenderer, Drawing::moreassets, &Instructionsrc, &Instructionsmover);       //draws instruction screen
+        break;
+        case 'F':
+            SDL_RenderCopy(Drawing::gRenderer, Drawing::moreassets, &fadesrc, &fademover);
+        break;
+        case 'C':
+            SDL_RenderCopy(Drawing::gRenderer, Drawing::moreassets, &correctsrc, &correctmover);
+        break;
+        case 'N':
+            SDL_RenderCopy(Drawing::gRenderer, Drawing::moreassets, &wrongsrc, &wrongmover);
+        break;
+        case 'Y':
+            SDL_RenderCopy(Drawing::gRenderer, Drawing::moreassets, &ynsrn, &ynmover);
+        break;
+        case 'Q':
+            SDL_RenderCopy(Drawing::gRenderer, Drawing::moreassets, &quizstartingsrc, &quizstartingmover);
+        break;
+        case 'W':
+            SDL_RenderCopy(Drawing::gRenderer, Drawing::moreassets, &winsrc, &winmover);
+        break;
+        case 'L':
+            SDL_RenderCopy(Drawing::gRenderer, Drawing::moreassets, &losesrc, &losemover);
+        break;   
+    }
+};

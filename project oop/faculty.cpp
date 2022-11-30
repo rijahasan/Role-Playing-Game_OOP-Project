@@ -19,3 +19,8 @@ void faculty :: draw()
 }
 
 
+bool faculty :: viva(){
+    if (I.getcount()>=11)
+        return true;
+    return false;
+}

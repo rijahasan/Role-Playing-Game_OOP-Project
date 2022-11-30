@@ -10,8 +10,6 @@ void textbox :: draw ()
 
 
 
-
-
 textbox :: textbox()
 {
     srcRect = {21, 29, 752, 134};

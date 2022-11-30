@@ -7,8 +7,9 @@ class Drawing{
     //global reference to png image sheets
 
     static SDL_Texture* assets;
+    static SDL_Texture* white;
+    static SDL_Texture* moreassets;
     static SDL_Texture* classmates;
     static SDL_Texture* textboxes;
-    static SDL_Texture* lentime;
 
 };

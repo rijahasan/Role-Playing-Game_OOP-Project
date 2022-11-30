@@ -24,6 +24,7 @@ class Classmember{
     void movement(SDL_Keycode);
     // virtual void addinteraction() = 0;
     virtual void draw()=0;
+    virtual bool viva();
     void addinteraction(SDL_Rect, SDL_Rect);
     bool drawnextinteraction();
     void drawinteraction();

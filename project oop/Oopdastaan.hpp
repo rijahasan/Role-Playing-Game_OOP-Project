@@ -4,6 +4,7 @@
 #include "Classmember.hpp"
 #include "faculty.hpp"
 #include "students.hpp"
+#include "RahimBhai.hpp"
 #include "desk.hpp"
 #include<vector>
 #include<list>
@@ -22,7 +23,9 @@ class Oopdastaan{
     bool* interacted= new bool[9];
     int nextinteraction;
     bool isfaculty=false;
+    bool VivaStarted=false;
     public:
+    bool getvivastatus();
 
     void drawObjects(); 
     void createStudents();

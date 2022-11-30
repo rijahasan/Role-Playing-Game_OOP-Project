@@ -10,12 +10,12 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-
 SDL_Renderer* Drawing::gRenderer = NULL;
+SDL_Texture* Drawing::white = NULL;
 SDL_Texture* Drawing::assets = NULL;
+SDL_Texture* Drawing::moreassets = NULL;
 SDL_Texture* Drawing::classmates = NULL;
 SDL_Texture* Drawing::textboxes = NULL;
-SDL_Texture* Drawing::lentime = NULL;
 
 
 
@@ -90,15 +90,15 @@ bool Game::loadMedia()
 {
 	//Loading success flag
 	bool success = true;
-	
+	Drawing::moreassets = loadTexture("moreassets.png");
+	Drawing::white = loadTexture("white.png");
 	Drawing::assets = loadTexture("assets.png");
 	Drawing::classmates = loadTexture("classmates.png");
 	Drawing::textboxes = loadTexture("textbox.png");
-	Drawing::lentime = loadTexture("len_time_window.png");
 	
 	gTexture = loadTexture("mainscreen.png");
 
-	if(Drawing::lentime == NULL || Drawing::classmates==NULL || Drawing::assets==NULL || gTexture==NULL || Drawing::textboxes==NULL)
+	if(Drawing::classmates==NULL || Drawing::moreassets==NULL || Drawing::assets==NULL || Drawing::white==NULL || gTexture==NULL || Drawing::textboxes==NULL)
     {
         printf("Unable to run due to error: %s\n",SDL_GetError());
         success =false;
@@ -127,7 +127,8 @@ bool Game::loadMedia()
 void Game::close()
 {
 	//Free loaded images
-	SDL_DestroyTexture(Drawing::lentime);
+	SDL_DestroyTexture(Drawing::white);
+	SDL_DestroyTexture(Drawing::moreassets);
 	SDL_DestroyTexture(Drawing::assets);
 	SDL_DestroyTexture(Drawing::classmates);
 	Mix_FreeChunk(RightansMusic);
@@ -137,11 +138,10 @@ void Game::close()
 	RightansMusic = NULL;
 	//WrongansMusic = NULL;
 	
-
+	Drawing::white=NULL;
 	Drawing::assets=NULL;
 	Drawing::classmates=NULL;
 	Drawing::textboxes=NULL;
-	Drawing::lentime=NULL;
 	
 
 	SDL_DestroyTexture(gTexture);
@@ -202,13 +202,15 @@ void Game::run( )
 	s9 = new students(20, 510);		
 	oopmania.createDesks();
 	oopmania.createStudents();
+	bool drawinstructions=false;
+	drawelements elements;
 	// Text text(Drawing::gRenderer, "arialbd.ttf", 15, "HAKUNA MATATA", {255,0,0,255});
+        SDL_RenderCopyEx(Drawing::gRenderer, gTexture, NULL, NULL, 0, 0, SDL_FLIP_NONE);
+        SDL_RenderPresent(Drawing::gRenderer);
 
     while (!check)
     {
 		
-        SDL_RenderCopyEx(Drawing::gRenderer, gTexture, NULL, NULL, 0, 0, SDL_FLIP_NONE);
-        SDL_RenderPresent(Drawing::gRenderer);
         int xMouse, yMouse;
 
         while (SDL_PollEvent(&e) != 0)
@@ -216,6 +218,7 @@ void Game::run( )
 			if( e.type == SDL_QUIT )
 			{
 				quit = true;
+				check=true;
 			}
 
             if (e.type == SDL_MOUSEBUTTONDOWN)
@@ -228,15 +231,21 @@ void Game::run( )
                     check = true;
 				    gTexture = loadTexture("background.png");
                 }
-                // if (xMouse > 1045 && xMouse < 1165 && yMouse > 164 && yMouse < 253)		for instructions buttons
-                // {
-                //     quit = true;
-                //     check = true;
-                // }
+                else if (xMouse > 395 && xMouse < 610 && yMouse > 452 && yMouse < 508 && drawinstructions==false)		//for intructions buttons
+					drawinstructions=true;
+				else if (drawinstructions==true)
+					drawinstructions=false;
             }
         }
+			SDL_RenderClear(Drawing::gRenderer); //removes everything from renderer				
+			SDL_RenderCopy(Drawing::gRenderer, gTexture, NULL, NULL);//Draws background to renderer
+			if (drawinstructions==true){
+				elements.draw('I');	}
+			SDL_RenderPresent(Drawing::gRenderer); //displays the updated renderer
+			SDL_Delay(100);	//causes sdl engine to delay for specified miliseconds
+
     }
-		bool completed=false;
+	bool completed=false;
 	textbox trial;
 	bool collided = false;
 	SDL_Rect deskcollided;
@@ -283,10 +292,11 @@ void Game::run( )
 					}
 			}
 		}
-		if (oopmania.Isfaculty()){
-			cout<<"Your Viva is starting! Buckly UP.";
-			sleep(1);
+		if (oopmania.getvivastatus()){
 			seconds++;
+			elements.draw('F');		//draws fade to highlight text
+			elements.draw('F');		//draws fade to highlight text
+			
 		}
 		t.IncreaseTime(seconds);
 		SDL_RenderClear(Drawing::gRenderer); //removes everything from renderer				
@@ -304,11 +314,11 @@ void Game::run( )
 			else
 				continueinteract=true;
 		}
-		// if (Mix_PlayingMusic() == 0)
-        // {
-        //     Mix_PlayMusic(bgMusic, 2);
-        //     int Mix_VolumeMusic(30);
-        // }
+		if (Mix_PlayingMusic() == 0)
+        {
+            Mix_PlayMusic(bgMusic, 2);
+            int Mix_VolumeMusic(30);
+        }
 		//***********************draw the objects here********************
 
 		//****************************************************************

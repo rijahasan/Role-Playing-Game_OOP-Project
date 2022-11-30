@@ -9,5 +9,6 @@ class faculty : public Classmember {
     faculty(int, int);
     ~faculty();
     void draw();
+    bool viva();
 };
  

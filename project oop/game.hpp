@@ -10,6 +10,8 @@
 #include "SDL_ttf.h"
 #include "textbox.hpp"
 #include "drawing.hpp"
+#include "drawelements.hpp"
+
 
 #pragma once
 using namespace std;
