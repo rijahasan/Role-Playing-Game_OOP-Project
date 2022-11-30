@@ -4,7 +4,7 @@
 void desk :: draw ()
 {
     if (iswindow)
-         SDL_RenderCopy(Drawing::gRenderer, Drawing::assets, &srcRect, &moverRect);
+         SDL_RenderCopy(Drawing::gRenderer, Drawing::moreassets, &srcRect, &moverRect);
     else
          SDL_RenderCopy(Drawing::gRenderer, Drawing::assets, &srcRect, &moverRect);
 
@@ -22,10 +22,11 @@ desk :: desk(int x, int y)
     moverRect = {x, y, 120, 90};
 }
 
-desk :: desk(SDL_Rect src, SDL_Rect mover)      //constructor overloading
+desk :: desk(SDL_Rect src, SDL_Rect mover)      //constructor overloading, different srcRect for window
 {
     srcRect = src ;
     moverRect = mover;
+    iswindow=true;     //if the object made is of the window
 }
 
 SDL_Rect desk :: getter()

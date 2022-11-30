@@ -17,8 +17,8 @@ class Oopdastaan{
     vector <bee*> bees;
     vector<butterfly*> butterflies;
     */
-    desk **D = new desk*[9];      //container of desks
-    Classmember **C = new Classmember*[9];      //container of classmembers
+    desk **D = new desk*[10];      //container of desks
+    Classmember **C = new Classmember*[10];      //container of classmembers
    //students* s9;
     bool* interacted= new bool[9];
     int nextinteraction;

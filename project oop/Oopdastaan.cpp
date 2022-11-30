@@ -46,7 +46,7 @@ void Oopdastaan::createDesks()
 	D[6] = new desk(830, 250);      //6
 	D[7] = new desk(260, 165);      //7
 	D[8] = new desk(620, 165);      //8
-	D[9] = new desk({516,0,0,0}, {368,0,0,0});      //9     //window is a type of  desk 
+	D[9] = new desk({42, 1550, 52, 356}, {980,65,20,137});      //9     //window is a type of  desk 
     // cout<<d8->returnCoordinates();
 }
 void Oopdastaan :: createStudents(){
@@ -75,6 +75,11 @@ void Oopdastaan :: createStudents(){
     C[0]->addinteraction({2030,840,734,116}, {560, 15, 260, 46});
     C[0]->addinteraction({2021,1032,752,133}, {560, 15, 260, 46});
     C[0]->addinteraction({2898,1031,752,134}, {560, 15, 260, 46});
+    C[0]->addinteraction({2021,1232,752,134}, {560, 15, 260, 46});
+    C[0]->addinteraction({2021,1447,752,134}, {560, 15, 260, 46});
+    C[0]->addinteraction({2021,1731,752,134}, {560, 15, 260, 46});
+    C[0]->addinteraction({2898,1717,752,134}, {560, 15, 260, 46});
+
 
     C[1]->addinteraction({21, 3032, 752, 133}, {50, 400, 260, 46});
     C[1]->addinteraction({898, 3031, 752, 133} , {40, 400, 260, 46});
@@ -120,6 +125,14 @@ void Oopdastaan :: createStudents(){
     C[8]->addinteraction({898,2231,752,134}, {660, 150, 260, 46});
     C[8]->addinteraction({21,2436,752,128}, {660, 150, 260, 46});
 
+
+    C[9]->addinteraction({21,631,752,134}, {698, 99, 260, 46});
+    C[9]->addinteraction({898,631,752,134}, {698, 99, 260, 46});
+    C[9]->addinteraction({21,832,752,133}, {698, 99, 260, 46});
+    C[9]->addinteraction({898,827,752,134}, {698, 99, 260, 46});
+
+
+
     
     // C[7]->addinteraction({21,1432,752,134}, {310, 160, 260, 46});
     
@@ -134,7 +147,7 @@ void Oopdastaan :: createStudents(){
 // Alizain: 21, 4431, 752, 133 – 898, 4431, 752, 133 – 21, 4631, 752, 134 – 898, 4631, 752, 134
 SDL_Rect Oopdastaan ::  Collision(students* mainStudent, SDL_Keycode key){
     SDL_Rect stud = mainStudent->getter();
-    for (int i=0;i<9;i++)
+    for (int i=0;i<10;i++)
     {
 		SDL_Rect nextdesk = D[i]->getter();
 
@@ -215,10 +228,10 @@ bool Oopdastaan ::  getvivastatus(){
 
 Oopdastaan:: ~Oopdastaan()
 {
-    for (int i=0;i<9;i++)
+    for (int i=0;i<10;i++)
         delete D[i];
     delete [] D;
-    for (int i=0;i<9;i++)
+    for (int i=0;i<10;i++)
         delete C[i];
     delete [] C;
     delete [] interacted;
