@@ -13,13 +13,13 @@ using namespace std;
 class interactions{
     vector <textbox*> textboxes;
     vector <bool> interacted;
-    int count;
     public:
+    int count=0;
     interactions();
     void addtextbox(SDL_Rect, SDL_Rect);
     void drawtextbox();
     bool drawnexttextbox();     //returns false if the textbox is empty
-    int getcount();
+    int questionnum();
     ~interactions();
 
 };

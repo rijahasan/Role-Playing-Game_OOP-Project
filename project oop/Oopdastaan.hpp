@@ -25,7 +25,6 @@ class Oopdastaan{
     bool isfaculty=false;
     bool VivaStarted=false;
     public:
-    bool getvivastatus();
 
     void drawObjects(); 
     void createStudents();
@@ -33,6 +32,10 @@ class Oopdastaan{
     void createDesks();
     bool interact(bool);
     bool turnstudentAtDesk(SDL_Rect);
-    ~Oopdastaan();
     bool Isfaculty();
+    bool getvivastatus();
+    int getquestionnum();
+    bool checkans(int,SDL_Keycode); //checks if the answer is correct, returns true if it is , false if not
+    int facultyinteractionnum();
+    ~Oopdastaan();
 };

@@ -64,7 +64,7 @@ void Oopdastaan :: createStudents(){
     C[9] = new RahimBhai();      //rahimbhai only has interactions
     
     //s9 = new students(20, 510);
-    C[0]->addinteraction({2021, 29, 752, 134}, {560, 15, 260, 46});
+    C[0]->addinteraction({2021, 29, 752, 134}, {560, 15, 260, 46}); //faculty
     C[0]->addinteraction({2898, 29, 752, 134}, {560, 15, 260, 46});
     C[0]->addinteraction({2021, 231, 752, 134}, {560, 15, 260, 46});
     C[0]->addinteraction({2898, 231, 752, 134}, {560, 15, 260, 46});
@@ -80,51 +80,49 @@ void Oopdastaan :: createStudents(){
     C[0]->addinteraction({2021,1731,752,134}, {560, 15, 260, 46});
     C[0]->addinteraction({2898,1717,752,134}, {560, 15, 260, 46});
 
-
     C[1]->addinteraction({21, 3032, 752, 133}, {50, 400, 260, 46});
     C[1]->addinteraction({898, 3031, 752, 133} , {40, 400, 260, 46});
     C[1]->addinteraction({21, 3232, 751, 133} , {50, 400, 260, 46});
     C[1]->addinteraction({898,3231, 752,133} , {50, 400, 260, 46});
     C[1]->addinteraction({21,3432,752,134}, {50, 400, 260, 46});    
 
-    C[2]->addinteraction({21,231,752,134}, {810, 450, 260, 46});
-    C[2]->addinteraction({898,231,752,134}, {810, 450, 260, 46});
-    C[2]->addinteraction({21,431,752,133}, {810, 450, 260, 46});
-    C[2]->addinteraction({892,429,751,134}, {810, 450, 260, 46});
+    C[2]->addinteraction({21,231,752,134}, {750, 400, 260, 46});
+    C[2]->addinteraction({898,231,752,134}, {750, 400, 260, 46});
+    C[2]->addinteraction({21,431,752,133}, {750, 400, 260, 46});
+    C[2]->addinteraction({892,429,751,134}, {750, 400, 260, 46});
     
-    C[3]->addinteraction({21, 3632, 752, 134},{333, 320, 260, 46}) ;//sidra
-    C[3]->addinteraction({898, 3631, 752, 133},{328, 320, 260, 46}) ;
-    C[3]->addinteraction({21, 3833, 752, 133},{328, 320, 260, 46}) ;
+    C[3]->addinteraction({21, 3632, 752, 134},{300, 305, 260, 46}) ;//sidra
+    C[3]->addinteraction({898, 3631, 752, 133},{300, 305, 260, 46}) ;
+    C[3]->addinteraction({21, 3833, 752, 133},{300, 305, 260, 46}) ;
 
-    C[4]->addinteraction({21, 4231, 752, 134}, {620, 370, 260, 46});
+    C[4]->addinteraction({21, 4231, 752, 134}, {590, 310, 260, 46}); //shaheer
 
     C[5]->addinteraction({21, 4431, 752, 133}, {2, 200, 260, 46}); //alizain
     C[5]->addinteraction({898, 4431, 752, 133}, {2, 200, 260, 46});
     C[5]->addinteraction({21, 4631, 752, 134}, {2, 200, 260, 46});
-    C[5]->addinteraction({898, 4631, 752, 134}, {2, 135, 260, 46});
+    C[5]->addinteraction({898, 4631, 752, 134}, {2, 200, 260, 46});
 
-    C[6]->addinteraction({21,4832,752,133}, {860, 250, 260, 46});   //eman
-    C[6]->addinteraction({898,4831,752,134}, {860, 250, 260, 46});
-    C[6]->addinteraction({21,5032,752,133}, {860, 250, 260, 46});
-    C[6]->addinteraction({898,5036,747,128}, {860, 250, 260, 46});
-    C[6]->addinteraction({898,5231,752,133}, {860, 250, 260, 46});
-    C[6]->addinteraction({21,5432,752,134}, {860, 250, 260, 46});
-    C[6]->addinteraction({898,5431,752,133}, {860, 250, 260, 46});
-    C[6]->addinteraction({21,5632,752,134}, {860, 250, 260, 46});
-    C[6]->addinteraction({898,5631,752,133}, {860, 250, 260, 46});
-    C[6]->addinteraction({21,5833,752,133}, {860, 250, 260, 46});
+    C[6]->addinteraction({21,4832,752,133}, {760, 200, 260, 46});   //eman
+    C[6]->addinteraction({898,4831,752,134}, {760, 200, 260, 46});
+    C[6]->addinteraction({21,5032,752,133}, {760, 200, 260, 46});
+    C[6]->addinteraction({898,5036,747,128}, {760, 200, 260, 46});
+    C[6]->addinteraction({898,5231,752,133}, {760, 200, 260, 46});
+    C[6]->addinteraction({21,5432,752,134}, {760, 200, 260, 46});
+    C[6]->addinteraction({898,5431,752,133}, {760, 200, 260, 46});
+    C[6]->addinteraction({21,5632,752,134}, {760, 200, 260, 46});
+    C[6]->addinteraction({898,5631,752,133}, {760, 200, 260, 46});
+    C[6]->addinteraction({21,5833,752,133}, {760, 200, 260, 46});
 
-    C[7]->addinteraction({21,1032,752,133}, {310, 160, 260, 46});   //hamza
-    C[7]->addinteraction({898,1039,752,129}, {310, 160, 260, 46});
-    C[7]->addinteraction({21,1232,752,133}, {310, 160, 260, 46});
-    C[7]->addinteraction({898,1231,752,133}, {310, 160, 260, 46});
-    C[7]->addinteraction({21,1432,752,134}, {310, 160, 260, 46});
+    C[7]->addinteraction({21,1032,752,133}, {250, 110, 260, 46});   //hamza
+    C[7]->addinteraction({898,1039,752,129}, {250, 110, 260, 46});
+    C[7]->addinteraction({21,1232,752,133}, {250, 110, 260, 46});
+    C[7]->addinteraction({898,1231,752,133}, {250, 110, 260, 46});
+    C[7]->addinteraction({21,1432,752,134}, {250, 110, 260, 46});
 
-    C[8]->addinteraction({21,2029,752,134}, {660, 150, 260, 46});
-    C[8]->addinteraction({898,2029,752,134}, {660, 150, 260, 46});
-    C[8]->addinteraction({898,2231,752,134}, {660, 150, 260, 46});
-    C[8]->addinteraction({21,2436,752,128}, {660, 150, 260, 46});
-
+    C[8]->addinteraction({21,2029,752,134}, {630, 110, 260, 46}); //burhan
+    C[8]->addinteraction({898,2029,752,134}, {630, 110, 260, 46});
+    C[8]->addinteraction({898,2231,752,134}, {630, 110, 260, 46});
+    C[8]->addinteraction({21,2436,752,128}, {630, 110, 260, 46});
 
     C[9]->addinteraction({21,631,752,134}, {698, 99, 260, 46});
     C[9]->addinteraction({898,631,752,134}, {698, 99, 260, 46});
@@ -207,7 +205,7 @@ bool Oopdastaan :: turnstudentAtDesk(SDL_Rect dsk){ //this function turns the st
 bool Oopdastaan :: interact(bool Cont){     //checks whether to move on to next statement
     if (!Cont){
         interacted[nextinteraction] = C[nextinteraction]->drawnextinteraction();        //if the textboxes are empty then interaction complete and true is returned
-        if (nextinteraction==0 && C[nextinteraction]->viva()==true)
+        if (nextinteraction==0 && C[nextinteraction]->viva()==true)     //checks if questions have started
             VivaStarted=true;
     }
     else
@@ -225,6 +223,45 @@ bool Oopdastaan ::  getvivastatus(){
     return VivaStarted;
 }
 
+int Oopdastaan ::  facultyinteractionnum(){
+    return C[0]->I.count;
+}
+
+int Oopdastaan :: getquestionnum(){
+    return C[nextinteraction]->I.questionnum();
+    }
+
+bool Oopdastaan :: checkans(int a, SDL_Keycode key){
+    switch (a){
+        case 1:
+            if (key==SDLK_y)
+                return true;
+            else
+                return false;
+        break;
+        case 2:
+            if (key==SDLK_n)
+                return true;
+            else
+                return false;
+        break;
+        case 3:
+            if (key==SDLK_y)
+                return true;
+            else
+                return false;
+        break;
+        case 4:
+            if (key==SDLK_y)
+                return true;
+            else
+                return false;
+        break;
+        default:
+            cout<<"press a valid key";
+
+    }
+}
 
 Oopdastaan:: ~Oopdastaan()
 {

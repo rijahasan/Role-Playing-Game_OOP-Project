@@ -6,10 +6,9 @@
 #pragma once
 
 class Classmember{
-    protected:
-    interactions I;
     public:
     //string Name;
+    interactions I;
     SDL_Rect srcRect, srcRectF, moverRect, srcRectB;       //srcRectB represents back side of the sprite while srcRectF represents front side 
     int count = 0;
     void moveDown();

@@ -9,6 +9,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <unistd.h>
+#include "LeniencyMeter.hpp"
 
 SDL_Renderer* Drawing::gRenderer = NULL;
 SDL_Texture* Drawing::white = NULL;
@@ -246,12 +247,15 @@ void Game::run( )
 
     }
 	bool completed=false;
-	textbox trial;
 	bool collided = false;
 	SDL_Rect deskcollided;
+	LeniencyMeter Lmeter;
 	bool InteractOrNot=false; 
 	bool continueinteract=false;
+	bool correctans;
 	int seconds=0;		//starting second is 0 
+	int questionnumber=0;
+	bool meterfull=false;
 	// int bee_frame;
 	while( !quit )
 	{	//Handle events on queue
@@ -261,6 +265,10 @@ void Game::run( )
 				quit = true;
 			}
 			if(e.type == SDL_KEYDOWN){
+					if (oopmania.getvivastatus()){
+						correctans = oopmania.checkans(oopmania.getquestionnum(),e.key.keysym.sym);
+						break;
+					}
 					if (continueinteract && e.key.keysym.sym!=SDLK_x)
 						break;
 					else if (continueinteract && e.key.keysym.sym==SDLK_x){
@@ -292,13 +300,6 @@ void Game::run( )
 					}
 			}
 		}
-		if (oopmania.getvivastatus()){
-			seconds++;
-			elements.draw('F');		//draws fade to highlight text
-			elements.draw('F');		//draws fade to highlight text
-			
-		}
-		t.IncreaseTime(seconds);
 		SDL_RenderClear(Drawing::gRenderer); //removes everything from renderer				
 		SDL_RenderCopy(Drawing::gRenderer, gTexture, NULL, NULL);//Draws background to renderer
 		oopmania.drawObjects();
@@ -306,7 +307,34 @@ void Game::run( )
 
         // leniency meter: srcRect={35, 8, 130, 6}
 
-		t.draw();
+        // leniency meter: srcRect={35, 8, 130, 6}
+		if (oopmania.Isfaculty()){
+			t.draw();
+			Lmeter.draw();
+			if (oopmania.facultyinteractionnum()==10){
+				elements.draw('F');		//draws fade to highlight text
+				elements.draw('Q');
+				meterfull=Lmeter.IncreaseLeniency();
+			}
+			if (oopmania.getvivastatus()){
+				seconds++;
+				t.IncreaseTime(seconds);
+			}
+			if (correctans){
+				elements.draw('C');
+			}
+			// else if ()
+			else
+				elements.draw('L');
+			
+		}
+		if (meterfull)
+			elements.draw('W');
+					// system.("pause")
+		if (seconds>1200){
+			 elements.draw('L');
+			 break;
+		}
 		if (InteractOrNot){
 			completed=oopmania.interact(continueinteract);
 			if (completed)

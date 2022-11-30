@@ -20,7 +20,7 @@ void faculty :: draw()
 
 
 bool faculty :: viva(){
-    if (I.getcount()>=11)
+    if (I.questionnum()>=1)
         return true;
     return false;
 }

@@ -8,32 +8,35 @@ void Time :: draw ()
 }
 
 void Time :: IncreaseTime(int a){
-    if (a==80){
-        srcRect={35, 141, 130, 7};
-        }
-    else if (a==190){
-        srcRect={35, 141, 130, 7};
-        }
-    else if (a==270){
-        srcRect={35, 161, 130, 6};
+    if (a==40){
+        srcRect={0, 544, 673, 31};
     }
-    else if (a==360){
-        srcRect={35, 180, 130, 6};
+    else if (a==80){
+        srcRect={0, 643, 673, 30};
     }
-    else if (a==450){
-        srcRect={35, 180, 130, 6};
+    else if (a==50){
+        srcRect={0, 741, 673, 31};
     }
-    else if (a==540){
-        srcRect={35, 180, 130, 6};
+    else if (a==100){
+        srcRect={0, 842, 673, 31};
     }
-    else if (a==630){
-        srcRect={35, 180, 130, 6};
+    else if (a==250){
+        srcRect={0, 940, 673, 31};
     }
-    else if (a==720){
-        srcRect={35, 180, 130, 6};
+    else if (a==400){
+        srcRect={0, 1039, 673, 31};
     }
-    else if (a==810){
-        srcRect={35, 180, 130, 6};
+    else if (a==550){
+        srcRect={0, 1137, 673, 30};
+    }
+    else if (a==700){
+        srcRect={0, 1253, 673, 31};
+    }
+    else if (a==850){
+        srcRect={0, 1351, 673, 31};
+    }
+    else if (a==1000){
+        srcRect={0, 1449, 673, 31};
     }   
 }
 
@@ -41,6 +44,10 @@ Time :: Time()
 {
     moverRect={85, 35, 217, 10};
     srcRect={0, 0, 673, 31};
+;
 
 }
+
+
+
 

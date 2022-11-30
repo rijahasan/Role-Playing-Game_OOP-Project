@@ -26,8 +26,11 @@ void interactions :: drawtextbox(){
     textboxes[0]->draw();
 }
 
-int interactions :: getcount(){
-    return count;
+int interactions :: questionnum(){
+    if (count>=11)
+        return count-10;
+    else
+        return 0;
 }
 
 interactions :: ~interactions(){
