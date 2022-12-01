@@ -32,8 +32,9 @@ bool LeniencyMeter :: IncreaseLeniency(){
 
 LeniencyMeter :: LeniencyMeter()
 {
-    moverRect={85, 35, 217, 10};
+    moverRect={85, 55, 217, 10};
     srcRect={0, 0, 673, 31};
+    meter=0;
 }
 
 

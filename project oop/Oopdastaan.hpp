@@ -37,5 +37,6 @@ class Oopdastaan{
     int getquestionnum();
     bool checkans(int,SDL_Keycode); //checks if the answer is correct, returns true if it is , false if not
     int facultyinteractionnum();
+    bool interactedstatus (int);
     ~Oopdastaan();
 };

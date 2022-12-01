@@ -252,10 +252,11 @@ void Game::run( )
 	LeniencyMeter Lmeter;
 	bool InteractOrNot=false; 
 	bool continueinteract=false;
-	bool correctans;
+	bool correctans=false;
 	int seconds=0;		//starting second is 0 
 	int questionnumber=0;
 	bool meterfull=false;
+	bool newans=true;
 	// int bee_frame;
 	while( !quit )
 	{	//Handle events on queue
@@ -265,19 +266,30 @@ void Game::run( )
 				quit = true;
 			}
 			if(e.type == SDL_KEYDOWN){
-					if (oopmania.getvivastatus()){
-						correctans = oopmania.checkans(oopmania.getquestionnum(),e.key.keysym.sym);
+					if (oopmania.Isfaculty() && e.key.keysym.sym==SDLK_x && oopmania.facultyinteractionnum()==10){
+						InteractOrNot=true;
 						break;
 					}
-					if (continueinteract && e.key.keysym.sym!=SDLK_x)
+					if (oopmania.getvivastatus() && (e.key.keysym.sym==SDLK_y || e.key.keysym.sym==SDLK_n)){
+						correctans = oopmania.checkans(oopmania.getquestionnum(),e.key.keysym.sym);
+						continueinteract=false;
+						InteractOrNot=oopmania.interactedstatus(0);		//checks if the interaction has been completed or not
 						break;
-					else if (continueinteract && e.key.keysym.sym==SDLK_x){
+					}
+					else if (oopmania.getvivastatus() && e.key.keysym.sym!=SDLK_y && e.key.keysym.sym!=SDLK_n){
+						newans=false;		//if the key pressed is not y or n, it doesnt move forward
+						continueinteract=true;
+						break;
+					}
+					if (continueinteract && e.key.keysym.sym!=SDLK_x && collided)		//if x is not pressed, game won't move on to the nect statement in the interaction
+						break;
+					else if (continueinteract && e.key.keysym.sym==SDLK_x && collided){ 		//if x is pressed, game moves on to the nect statement in the interaction
 						continueinteract=false;
 						break;
 					}
-					if (collided == true && e.key.keysym.sym==SDLK_x)	{	///checks if the collision was true in the last iteration
-						InteractOrNot=oopmania.turnstudentAtDesk(deskcollided);		//implement textbox
-						if (InteractOrNot){	   //if true, interact
+					if (collided && e.key.keysym.sym==SDLK_x)	{	///checks if the collision was true in the last iteration and that x is pressed
+						InteractOrNot=oopmania.turnstudentAtDesk(deskcollided);		//turns the student at desk of collision
+						if (InteractOrNot){	   //if the interaction has not happened, interact
 							collided=true;		//remains collided
 							continueinteract=true;
 							break;
@@ -289,14 +301,15 @@ void Game::run( )
 						}					
 					}
 					// and e.key.keysym.scancode==SDL_SCANCODE_X
-					else if (e.key.keysym.sym==SDLK_LEFT || e.key.keysym.sym==SDLK_RIGHT ||  e.key.keysym.sym==SDLK_DOWN || e.key.keysym.sym==SDLK_UP){
-						deskcollided  = oopmania.Collision(s9, e.key.keysym.sym);
+					else if (e.key.keysym.sym==SDLK_LEFT || e.key.keysym.sym==SDLK_RIGHT ||  e.key.keysym.sym==SDLK_DOWN || e.key.keysym.sym==SDLK_UP){		
+						deskcollided  = oopmania.Collision(s9, e.key.keysym.sym);		//if arrow keys are pressed, it checks for collision with desks and returns its position is terms of its moverrect  
 						if (deskcollided.x==0 && deskcollided.y==0 && deskcollided.w==0 && deskcollided.h==0)		//condition for no collision
 							collided=false;
 						else
 							collided=true;
-						if (collided == false)
+						if (collided == false){
 							s9->movement(e.key.keysym.sym);
+						}
 					}
 			}
 		}
@@ -304,36 +317,55 @@ void Game::run( )
 		SDL_RenderCopy(Drawing::gRenderer, gTexture, NULL, NULL);//Draws background to renderer
 		oopmania.drawObjects();
 		s9->draw();
+		if (win==true){
+			elements.draw('W');
+			continue;
+		}
+		if (lost==true){
+			elements.draw('L');
+			continue;
+		}
 
         // leniency meter: srcRect={35, 8, 130, 6}
-
         // leniency meter: srcRect={35, 8, 130, 6}
 		if (oopmania.Isfaculty()){
-			t.draw();
-			Lmeter.draw();
-			if (oopmania.facultyinteractionnum()==10){
-				elements.draw('F');		//draws fade to highlight text
-				elements.draw('Q');
-				meterfull=Lmeter.IncreaseLeniency();
+				if (oopmania.facultyinteractionnum()==10){
+					elements.draw('F');		//draws fade to highlight text
+					elements.draw('Q');
+					if (InteractOrNot){
+						oopmania.interact(false);		//going to next intercation
+						InteractOrNot=false;
+						continue;
+					}
+				}
+				else if (oopmania.getvivastatus()){
+					elements.draw('F');
+					seconds++;
+					t.IncreaseTime(seconds);
+					if (correctans){
+						meterfull=Lmeter.IncreaseLeniency();
+						elements.draw('C');
+					}
+					else{
+						elements.draw('L');		//if any answer is wrong game is lost
+						lost=true;
+						continue;
+					}
+					// else if ()
+					t.draw();
+					Lmeter.draw();
+				if (meterfull){
+					elements.draw('W');
+					win=true;
+					continue;
+							// system.("pause")
+				}
+				if (t.timerout(seconds)){
+					elements.draw('L');
+					lost =true ;
+					continue;
+				}
 			}
-			if (oopmania.getvivastatus()){
-				seconds++;
-				t.IncreaseTime(seconds);
-			}
-			if (correctans){
-				elements.draw('C');
-			}
-			// else if ()
-			else
-				elements.draw('L');
-			
-		}
-		if (meterfull)
-			elements.draw('W');
-					// system.("pause")
-		if (seconds>1200){
-			 elements.draw('L');
-			 break;
 		}
 		if (InteractOrNot){
 			completed=oopmania.interact(continueinteract);
@@ -341,7 +373,11 @@ void Game::run( )
 				continueinteract=false;		//interaction completed
 			else
 				continueinteract=true;
+			if (oopmania.Isfaculty() && oopmania.getvivastatus()){
+				InteractOrNot=false;
+			}
 		}
+
 		if (Mix_PlayingMusic() == 0)
         {
             Mix_PlayMusic(bgMusic, 2);

@@ -35,6 +35,8 @@ public:
     
     bool check=false;
     bool init();
+    bool win=false;
+    bool lost=false;
     bool loadMedia();
     void close();
     SDL_Texture* loadTexture( std::string path );

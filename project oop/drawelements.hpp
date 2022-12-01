@@ -12,16 +12,17 @@ class drawelements{
     SDL_Rect correctsrc={732,352,306,56};
     SDL_Rect correctmover={300,500,286,36};
     SDL_Rect ynsrc={734, 423, 836, 56};
-    SDL_Rect ynmover={0,0,0,0}; 
+    SDL_Rect ynmover={300,500,138,20}; 
     SDL_Rect quizstartingsrc={737,496,979,56};
     SDL_Rect quizstartingmover={300,500,286,36};
     SDL_Rect winsrc={156,1500,480,211};
-    SDL_Rect winmover={0,0,0,0};
+    SDL_Rect winmover={157,225,480,211};
     SDL_Rect timeoutsrc={157, 1728, 480, 105};
-    SDL_Rect timeoutmover={0,0,0,0};
+    SDL_Rect timeoutmover={157,225,685,150};
     SDL_Rect losesrc={156,1853, 480, 105};
-    SDL_Rect losemover={0,0,0,0};
+    SDL_Rect losemover={157,225,685,150};
     SDL_Rect whitesrc={196,211,612,578};
+    
     public:
     void  draw (char);
 };

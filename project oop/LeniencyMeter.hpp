@@ -8,7 +8,8 @@ using namespace std;
 class LeniencyMeter{
     int meter=0;
     public:
-    SDL_Rect srcRect, moverRect;
+    SDL_Rect srcRect={};
+    SDL_Rect moverRect={};
     void  draw ();
     bool IncreaseLeniency();
     LeniencyMeter();

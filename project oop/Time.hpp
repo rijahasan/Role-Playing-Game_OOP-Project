@@ -10,6 +10,7 @@ class Time{
     SDL_Rect srcRect, moverRect;
     void  draw ();
     void IncreaseTime(int);
+    bool timerout(int);
     Time();
 };
 

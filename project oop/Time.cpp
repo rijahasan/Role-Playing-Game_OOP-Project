@@ -39,6 +39,11 @@ void Time :: IncreaseTime(int a){
         srcRect={0, 1449, 673, 31};
     }   
 }
+bool Time :: timerout(int s){
+    if (s>=1500)
+        return true;
+    return false;
+}
 
 Time :: Time()
 {

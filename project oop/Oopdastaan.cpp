@@ -151,25 +151,37 @@ SDL_Rect Oopdastaan ::  Collision(students* mainStudent, SDL_Keycode key){
 
 		if (key == SDLK_UP) //when up pressed
     {
-        if ((stud.x < (nextdesk.x + nextdesk.w)) and ((stud.x+stud.w) > nextdesk.x) and ((stud.y + stud.h)-7 > nextdesk.y) and (stud.y-7 < (nextdesk.y + nextdesk.h)))
-            return nextdesk;
+        if ((stud.x < (nextdesk.x + nextdesk.w)) and ((stud.x+stud.w) > nextdesk.x) and ((stud.y + stud.h)-7 > nextdesk.y) and (stud.y-7 < (nextdesk.y + nextdesk.h))){
+            if (i==0)
+                isfaculty=true;
+            return nextdesk;}
     }
     else if (key == SDLK_DOWN) //when down key pressed
     {
-        if ((stud.x < (nextdesk.x + nextdesk.w)) and ((stud.x+stud.w) > nextdesk.x) and ((stud.y + stud.h)+7 > nextdesk.y) and (stud.y+7 < (nextdesk.y + nextdesk.h)))
+        if ((stud.x < (nextdesk.x + nextdesk.w)) and ((stud.x+stud.w) > nextdesk.x) and ((stud.y + stud.h)+7 > nextdesk.y) and (stud.y+7 < (nextdesk.y + nextdesk.h))){
+            if (i==0)       //if collision happens with the instructor 
+                isfaculty=true;
             return nextdesk;
+        }
     }
     else if (key == SDLK_RIGHT) //when right key pressed
     {
-        if ((stud.x+7 < (nextdesk.x + nextdesk.w)) and ((stud.x+stud.w)+7 > nextdesk.x) and ((stud.y + stud.h) > nextdesk.y) and (stud.y < (nextdesk.y + nextdesk.h)))
+        if ((stud.x+7 < (nextdesk.x + nextdesk.w)) and ((stud.x+stud.w)+7 > nextdesk.x) and ((stud.y + stud.h) > nextdesk.y) and (stud.y < (nextdesk.y + nextdesk.h))){
+            if (i==0)
+                isfaculty=true;
             return nextdesk;
+        }
     }
     else if (key == SDLK_LEFT) //when left key pressed
     {
-        if ((stud.x-7 < (nextdesk.x + nextdesk.w)) and ((stud.x+stud.w)-7 > nextdesk.x) and ((stud.y + stud.h) > nextdesk.y) and (stud.y < (nextdesk.y + nextdesk.h)))
+        if ((stud.x-7 < (nextdesk.x + nextdesk.w)) and ((stud.x+stud.w)-7 > nextdesk.x) and ((stud.y + stud.h) > nextdesk.y) and (stud.y < (nextdesk.y + nextdesk.h))){
+            if (i==0)       
+                isfaculty=true;
             return nextdesk;
+        }
     }
 	}
+
 return {0,0,0,0};
 }
 
@@ -261,6 +273,10 @@ bool Oopdastaan :: checkans(int a, SDL_Keycode key){
             cout<<"press a valid key";
 
     }
+}
+
+bool Oopdastaan :: interactedstatus (int a){
+    return interacted[a];
 }
 
 Oopdastaan:: ~Oopdastaan()
