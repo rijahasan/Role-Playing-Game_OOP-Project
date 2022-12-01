@@ -6,29 +6,32 @@ void LeniencyMeter :: draw ()
 {
      SDL_RenderCopy(Drawing::gRenderer, Drawing::moreassets, &srcRect, &moverRect);
 }
-
-bool LeniencyMeter :: IncreaseLeniency(){
+void LeniencyMeter :: operator ++()
+        {
     switch (meter){
         case 0:
             srcRect={0,98,673,31};
             meter=1;
+            full = false;
         break;
         case 1:
             srcRect={0, 196, 673, 31};
             meter=2;
+            full = false;
         break;
         case 2:
             srcRect={0, 295, 673, 30};
             meter=3;
+            full = false;
         break;
         case 3:
             srcRect={0, 393, 673, 31};
             meter=4;
-            return true;
+            full = true;
         break;
     }
-    return false;
 }
+
 
 LeniencyMeter :: LeniencyMeter()
 {

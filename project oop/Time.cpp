@@ -8,34 +8,37 @@ void Time :: draw ()
 }
 
 void Time :: IncreaseTime(int a){
-    if (a==40){
+    if (a==50){
+        srcRect={0, 443, 673, 31};
+    }
+    else if (a==200){
         srcRect={0, 544, 673, 31};
     }
-    else if (a==80){
+    else if (a==350){
         srcRect={0, 643, 673, 30};
     }
-    else if (a==50){
+    else if (a==500){
         srcRect={0, 741, 673, 31};
     }
-    else if (a==100){
+    else if (a==750){
         srcRect={0, 842, 673, 31};
     }
-    else if (a==250){
+    else if (a==900){
         srcRect={0, 940, 673, 31};
     }
-    else if (a==400){
+    else if (a==1050){
         srcRect={0, 1039, 673, 31};
     }
-    else if (a==550){
+    else if (a==1200){
         srcRect={0, 1137, 673, 30};
     }
-    else if (a==700){
+    else if (a==1350){
         srcRect={0, 1253, 673, 31};
     }
-    else if (a==850){
+    else if (a==1500){
         srcRect={0, 1351, 673, 31};
     }
-    else if (a==1000){
+    else if (a==1650){
         srcRect={0, 1449, 673, 31};
     }   
 }

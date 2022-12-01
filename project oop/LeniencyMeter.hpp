@@ -10,8 +10,9 @@ class LeniencyMeter{
     public:
     SDL_Rect srcRect={};
     SDL_Rect moverRect={};
+    bool full=false;
     void  draw ();
-    bool IncreaseLeniency();
+    void operator ++();
     LeniencyMeter();
 };
 

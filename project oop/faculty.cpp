@@ -1,5 +1,6 @@
 #include "faculty.hpp"
 #pragma once
+using namespace std;
 
 faculty :: faculty()
 {
@@ -20,6 +21,7 @@ void faculty :: draw()
 
 
 bool faculty :: viva(){
+    cout<<I.questionnum();
     if (I.questionnum()>=1)
         return true;
     return false;
