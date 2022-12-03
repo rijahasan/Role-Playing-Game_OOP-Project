@@ -3,41 +3,21 @@
 using namespace std;
 
 
-void Oopdastaan::drawObjects()
+void Oopdastaan::drawObjects()      
 {
-    C[0]->draw();
+    C[0]->draw();       //draws faculty first, because the orientation is different
     interacted[0]=false; 
     for (int i=0;i<10;i++)
-        D[i]->draw();       //window is a kind of desk
-    
+        D[i]->draw();       //window is taken as a kind of desk
     for (int i=1;i<9;i++){
         C[i]->draw();
         interacted[i]=false;        //interaction has not happened
     }
-    //s9->draw();
-   /*  SDL_Event ev;
-    while( SDL_PollEvent( &ev ) != 0)
-    {
-        if(ev.type == SDL_KEYDOWN){
-            cout << "down";
-            s9->movement(ev.key.keysym.sym);
-        }
-        else 
-        {
-            cout << ev.type;
-            s9->movement(ev.key.keysym.sym);
-        }
-    }
-    
-     */
- 
 }
 
 void Oopdastaan::createDesks()
 {
-    //1 to 8 students 
-    //std::cout << "Mouse clicked at: " << x << " -- " << y << std::endl;
-	D[1] = new desk(100, 450);      //1     the index of desk and student are same
+	D[1] = new desk(100, 450);      //1     the index of desk and student are same, association
     D[0] = new desk(440, 45);       //F
 	D[2] = new desk(780, 450);      //2
 	D[3] = new desk(290, 350);      //3
@@ -58,12 +38,10 @@ void Oopdastaan :: createStudents(){
     C[5] = new students({79, 983, 70, 169}, {373, 983, 70, 168}, 80, 315); //zain
     C[6] = new students({632, 968, 91, 188}, {927, 968, 92, 188}, 860, 315);
     C[7] = new students({67,720, 93, 180},{363, 720, 91, 180}, 290, 240);       //hamza
-
-    // ({0,0,0,0}, {834, 1280, 114, 191}, 310, 190);       //dude w fanny bag
     C[8] = new students({650,726,92,157}, {956, 726, 92, 157}, 650, 240);      //pink gal
     C[9] = new RahimBhai();      //rahimbhai only has interactions
     
-    //s9 = new students(20, 510);
+    //Feeding interactions into the classmember objects 
     C[0]->addinteraction({2021, 29, 752, 134}, {560, 15, 260, 46}); //faculty
     C[0]->addinteraction({2898, 29, 752, 134}, {560, 15, 260, 46});
     C[0]->addinteraction({2021, 231, 752, 134}, {560, 15, 260, 46});
@@ -121,6 +99,7 @@ void Oopdastaan :: createStudents(){
 
     C[8]->addinteraction({21,2029,752,134}, {630, 110, 260, 46}); //burhan
     C[8]->addinteraction({898,2029,752,134}, {630, 110, 260, 46});
+    C[8]->addinteraction({21, 2231, 752,134}, {630, 110, 260, 46});
     C[8]->addinteraction({898,2231,752,134}, {630, 110, 260, 46});
     C[8]->addinteraction({21,2436,752,128}, {630, 110, 260, 46});
 
@@ -129,32 +108,20 @@ void Oopdastaan :: createStudents(){
     C[9]->addinteraction({21,832,752,133}, {698, 99, 260, 46});
     C[9]->addinteraction({898,827,752,134}, {698, 99, 260, 46});
 
-
-
-    
-    // C[7]->addinteraction({21,1432,752,134}, {310, 160, 260, 46});
-    
-
-    
 }
-              //adds interactions of classmates
-//Hammad: {21, 3032, 752, 133} {898, 3031, 752, 133} {21, 3232, 751, 133} {898,3231, 752,133} {21,3432,752,134}
-//     Sidra :  21, 3632, 752, 134    –  898, 3631, 752, 133 –  21, 3833, 752, 133
-// Shaheer: 21, 4231, 752, 134
-//hamza: {21,1032,752,133}{898,1039,752,129}{21,1232,752,133}{898,1231,752,133}{21,1432,752,134}
-// Alizain: 21, 4431, 752, 133 – 898, 4431, 752, 133 – 21, 4631, 752, 134 – 898, 4631, 752, 134
-SDL_Rect Oopdastaan ::  Collision(students* mainStudent, SDL_Keycode key){
-    SDL_Rect stud = mainStudent->getter();
-    for (int i=0;i<10;i++)
+
+SDL_Rect Oopdastaan ::  Collision(students* mainStudent, SDL_Keycode key){      //function to detect collision, takes main student (for position) and pressed key as parameters 
+    SDL_Rect stud = mainStudent->getter();      //gets the mains students srcmover 
+    for (int i=0;i<10;i++)  //inetrated over all the desks
     {
 		SDL_Rect nextdesk = D[i]->getter();
 
 		if (key == SDLK_UP) //when up pressed
     {
-        if ((stud.x < (nextdesk.x + nextdesk.w)) and ((stud.x+stud.w) > nextdesk.x) and ((stud.y + stud.h)-7 > nextdesk.y) and (stud.y-7 < (nextdesk.y + nextdesk.h))){
+        if ((stud.x < (nextdesk.x + nextdesk.w)) and ((stud.x+stud.w) > nextdesk.x) and ((stud.y + stud.h)-7 > nextdesk.y) and (stud.y-7 < (nextdesk.y + nextdesk.h))){     //checks for collision
             if (i==0)
                 isfaculty=true;
-            return nextdesk;}
+            return nextdesk;}       //returns the desk colllided
     }
     else if (key == SDLK_DOWN) //when down key pressed
     {
@@ -181,8 +148,7 @@ SDL_Rect Oopdastaan ::  Collision(students* mainStudent, SDL_Keycode key){
         }
     }
 	}
-
-return {0,0,0,0};
+    return {0,0,0,0};       //if no desk is collided a zero SDL_Rect is returned which is check in the game function to detect no collision
 }
 
 bool Oopdastaan :: turnstudentAtDesk(SDL_Rect dsk){ //this function turns the student at a particular desk whne the user presses x near it
@@ -190,21 +156,12 @@ bool Oopdastaan :: turnstudentAtDesk(SDL_Rect dsk){ //this function turns the st
     for (;i<9;i++){
         SDL_Rect nextdesk=D[i]->getter();
         if (dsk.x==nextdesk.x && dsk.y==nextdesk.y && dsk.w==nextdesk.w && dsk.h==nextdesk.h){
-            // if (i==9){      //because theres no classmember
-            //     if (interacted[i]==true)
-            //         return false;       //if the student is already interacted with, then returns false
-            //     else{
-            //         nextinteraction=i;
-            //         return true;
-            //     }
-            // else
             C[i]->turned=true;
             break;}   
             }
     if (i==0){
         isfaculty=true;
     }
-    // C[i]->
     if (interacted[i]==true){
         C[i]->turned=false;
         return false;       //if the student is already interacted with, then returns false

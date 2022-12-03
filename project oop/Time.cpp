@@ -8,37 +8,37 @@ void Time :: draw (){
 
 void Time :: operator ++ (){        //increment ooperator is overloaded to change the timer to change srcRect to a longer time bar
     switch (seconds){   //checks the variable seconds
-        case 50:
+        case 200:
         srcRect={0, 443, 673, 31};
         break;
-        case 100:
+        case 250:
         srcRect={0, 544, 673, 31};
         break;
-        case 150:
+        case 300:
         srcRect={0, 643, 673, 30};
         break;
-        case 200:
+        case 350:
         srcRect={0, 741, 673, 31};
         break;
-        case 250:
+        case 400:
         srcRect={0, 842, 673, 31};
         break;
-        case 300:
+        case 450:
         srcRect={0, 940, 673, 31};
         break;
-        case 350:
+        case 500:
         srcRect={0, 1039, 673, 31};
         break;
-        case 400:
+        case 550:
         srcRect={0, 1137, 673, 30};
         break;
-        case 450:
+        case 600:
         srcRect={0, 1253, 673, 31};
         break;
-        case 500:
+        case 650:
         srcRect={0, 1351, 673, 31};
         break;
-        case 650:
+        case 700:
         srcRect={0, 1449, 673, 31};
         break;
     }   
@@ -46,7 +46,7 @@ void Time :: operator ++ (){        //increment ooperator is overloaded to chang
 }
 
 bool Time :: timerout(){        //checks if the timer has run out or not 
-    if (seconds>=650)
+    if (seconds>=700)
         return true;        //returns true if it has, false, if not 
     return false;
 }

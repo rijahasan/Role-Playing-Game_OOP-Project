@@ -107,14 +107,9 @@ bool Game::loadMedia()
 	bgMusic = Mix_LoadMUS("pink-panther-6836.mp3");
     RightansMusic = Mix_LoadWAV("Winner Sms.mp3");
     //WrongansMusic = Mix_LoadWAV("negative_beeps-6008.mp3");
-    if (bgMusic == NULL)
+    if (bgMusic == NULL || RightansMusic == NULL)
     {
         printf("Unable to load music: %s \n", Mix_GetError());
-        success = false;
-    }
-    if (RightansMusic == NULL)
-    {
-        printf("Unable to load crash music: %s \n", Mix_GetError());
         success = false;
     }
     /* if (WrongansMusic == NULL)
@@ -205,7 +200,7 @@ void Game::run()
 	oopmania.createStudents();		//cerating the objects of students
 	bool drawinstructions=false;	//
 	drawelements elements;
-	// Text text(Drawing::gRenderer, "arialbd.ttf", 15, "HAKUNA MATATA", {255,0,0,255});
+	// Text text(Drawing::gRenderer, "arialbd.ttf", 15, "HAKUNA MATATA", {255,0,0,255});  sdlttd implementation, didnt work 
         SDL_RenderCopyEx(Drawing::gRenderer, gTexture, NULL, NULL, 0, 0, SDL_FLIP_NONE);
         SDL_RenderPresent(Drawing::gRenderer);
 
@@ -248,7 +243,12 @@ void Game::run()
 	bool nextques=false;		//checks whether to move on to next question
 	bool queanswered=false;			//checks if a question is answered
 	while( !quit )
-	{	//Handle events on queue
+	{	//Handle events on 
+		if (oopmania.getvivastatus()){
+			t.seconds=int(SDL_GetTicks())/100;	//current time is added to our time class's object t
+			++t;		//operator overloading
+			cout<<t.seconds<<endl;
+		}
 		while( SDL_PollEvent( &e ) != 0 ){
 			//User requests quit
 			if(e.type == SDL_QUIT){
@@ -339,44 +339,44 @@ void Game::run()
 				if (oopmania.facultyinteractionnum()==9){
 					if (InteractOrNot==false){
 						elements.draw('F');		//draws fade to highlight text
-						elements.draw('Q');}
+						elements.draw('Q');}	//draws the quiz starting alert message
 					else
 						elements.draw('F');	
 				}
-				if (oopmania.getvivastatus() && !win && !lost && !(t.timerout())){
+				if (oopmania.getvivastatus() && !win && !lost && !(t.timerout())){		//checks if the game status is running
 					elements.draw('F');
-					elements.draw('Y');
+					elements.draw('Y');		//draws the y for yes and n for no instruction while the viva is happening 
 					t.draw();
-					t.seconds++;
-					++t;		//operator overloading
-					if (queanswered && correctans){
-						elements.draw('C');
-						if (newans){
-							++Lmeter;
+					if (queanswered && correctans){		//checks if the answeres question is correct
+						elements.draw('C');		//draws the correct answer message
+						if (newans){	
+							++Lmeter;		//if the answer is new, the leniency meter is increased
 							Lmeter.draw();
-							newans=false;
+							newans=false;	
 						}
-						InteractOrNot=false;
+						InteractOrNot=false;		//won't interact until c is pressed again
 					}
 					else if (queanswered && !correctans){
 						elements.draw('L');		//if any answer is wrong game is lost
 						lost=true;
-						InteractOrNot=false;
+						InteractOrNot=false;		//won't interact
 					}
-					Lmeter.draw();
-					// else if ()
+					Lmeter.draw();		//draws the leniency meter in all iterations 
 					
 				if (Lmeter.full && !lost){
 					elements.draw('W');
 					win=true;
 							// system.("pause")
 				}
-				if (t.timerout() and !win){
-					elements.draw('T');
+				if (t.timerout() and !win){		
+					elements.draw('T');		//draws when timer runs out and game state is lost
 					lost =true ;
 				}
 			}
 		}
+		++t;
+		t.draw();
+		Lmeter.draw();
 		if (InteractOrNot && !win && !lost && !(t.timerout())){
 			if (!oopmania.getvivastatus())
 				completed=oopmania.interact(continueinteract);

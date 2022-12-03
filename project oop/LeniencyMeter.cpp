@@ -8,7 +8,7 @@ void LeniencyMeter :: draw ()
 }
 void LeniencyMeter :: operator ++()
         {
-    switch (meter){
+    switch (meter){     //
         case 0:
             srcRect={0,98,673,31};
             meter=1;
