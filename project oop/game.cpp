@@ -193,17 +193,17 @@ SDL_Texture* Game::loadTexture( std::string path )
 
 	return newTexture;
 }
-void Game::run( )
+void Game::run()
 {
 	Time t;
-	bool quit = false;
+	bool quit = false;	
 	SDL_Event e;
-	Oopdastaan oopmania;
+	Oopdastaan oopmania;	
 	students* s9;	//main character
 	s9 = new students(20, 510);		
-	oopmania.createDesks();
-	oopmania.createStudents();
-	bool drawinstructions=false;
+	oopmania.createDesks();		//creating the objects of desks
+	oopmania.createStudents();		//cerating the objects of students
+	bool drawinstructions=false;	//
 	drawelements elements;
 	// Text text(Drawing::gRenderer, "arialbd.ttf", 15, "HAKUNA MATATA", {255,0,0,255});
         SDL_RenderCopyEx(Drawing::gRenderer, gTexture, NULL, NULL, 0, 0, SDL_FLIP_NONE);
@@ -211,24 +211,16 @@ void Game::run( )
 
     while (!check)
     {
-		
         int xMouse, yMouse;
-
-        while (SDL_PollEvent(&e) != 0)
-        {
-			if( e.type == SDL_QUIT )
-			{
+        while (SDL_PollEvent(&e) != 0){
+			if( e.type == SDL_QUIT ){
 				quit = true;
 				check=true;
 			}
-
-            if (e.type == SDL_MOUSEBUTTONDOWN)
-            {
+            if (e.type == SDL_MOUSEBUTTONDOWN){
                 SDL_GetMouseState(&xMouse, &yMouse);
                 cout << xMouse << " & " << yMouse << endl;
-
-                if (xMouse > 454 && xMouse < 548 && yMouse > 338 && yMouse < 397)		//for play buttons
-                {
+                if (xMouse > 454 && xMouse < 548 && yMouse > 338 && yMouse < 397)		//for play buttons{
                     check = true;
 				    gTexture = loadTexture("background.png");
                 }
@@ -237,7 +229,6 @@ void Game::run( )
 				else if (drawinstructions==true)
 					drawinstructions=false;
             }
-        }
 			SDL_RenderClear(Drawing::gRenderer); //removes everything from renderer				
 			SDL_RenderCopy(Drawing::gRenderer, gTexture, NULL, NULL);//Draws background to renderer
 			if (drawinstructions==true){
@@ -246,46 +237,43 @@ void Game::run( )
 			SDL_Delay(100);	//causes sdl engine to delay for specified miliseconds
 
     }
-	bool completed=false;
-	bool collided = false;
-	SDL_Rect deskcollided;
-	LeniencyMeter Lmeter;
-	bool InteractOrNot=false; 
-	bool continueinteract=false;
-	bool correctans=false;
-	int questionnumber=0;
-	bool newans=true;
+	bool completed=false; 	//checks if the conversation is completed between two characters
+	bool collided = false;	//checks for collision
+	SDL_Rect deskcollided;	//gets the SDLRect of the desk collided
+	LeniencyMeter Lmeter;	//A leniency meter object
+	bool InteractOrNot=false; 	//checks whether to interact of not
+	bool continueinteract=false;	//check whether to draw the same textbox or go on to the next one
+	bool correctans=false;	//checks if the answer is correct
+	bool newans=true;		// leniency meter is only increased only once for each correct answer 
 	bool nextques=false;		//checks whether to move on to next question
 	bool queanswered=false;			//checks if a question is answered
-	// int bee_frame;
 	while( !quit )
 	{	//Handle events on queue
-
 		while( SDL_PollEvent( &e ) != 0 ){
 			//User requests quit
 			if(e.type == SDL_QUIT){
 				quit = true;
 				break;
 			}
-			if (win || lost || t.timerout())
+			if (win || lost || t.timerout())	//if the game is won and lost, control breaks out of this loop 
 				break;
-			if(e.type == SDL_KEYDOWN){
+			if(e.type == SDL_KEYDOWN){		//in case a key is pressed
 					if (oopmania.Isfaculty() && oopmania.facultyinteractionnum()==9){		//case where viva is just about to start
-						if (e.key.keysym.sym==SDLK_x){
-							continueinteract=false;
+						if (e.key.keysym.sym==SDLK_x){		
+							continueinteract=false;			//if x is pressed  conversation progresses and a different textbox is darwn
 							InteractOrNot=true;
 							break;
 						}
-						else{
-							break;
-						}
+						else
+							break;		//breaks out if any otehr key is pressed other than x on interaction no.9
 					}
 					if (oopmania.getvivastatus() && !queanswered && (e.key.keysym.sym==SDLK_y || e.key.keysym.sym==SDLK_n)){		//case where a question is answered
 						correctans = oopmania.checkans(oopmania.getquestionnum(),e.key.keysym.sym);		//calling check ans function
-						InteractOrNot=true;		//wont move on until x is pressed 
-						queanswered=true;
+						InteractOrNot=true;		//interaction will progress
+						queanswered=true;	
 						newans=true;
 						continueinteract =  true;
+						cout<<"Press x to move on to next question!";
 						break;
 					}
 					else if (oopmania.getvivastatus() && e.key.keysym.sym==SDLK_x && queanswered){		//if last question was answeresd and x is pressed 
@@ -303,11 +291,7 @@ void Game::run( )
 						continueinteract=true;
 						break;
 					}
-					else if (oopmania.getvivastatus()){
-						// InteractOrNot=true;
-						// newans=false;
-						// nextques=false;
-						// continueinteract=true;
+					else if (oopmania.getvivastatus()){	//if viva is happening and none of the relevant keys are pressed and conditions fulfilled, loop is continued
 						continue;
 					}	
 					if (continueinteract && e.key.keysym.sym!=SDLK_x && collided)		//if x is not pressed, game won't move on to the nect statement in the interaction
@@ -325,18 +309,17 @@ void Game::run( )
 						}
 						else{
 							collided = false; //when the interaction is done make it false	
-							cout<<"Already Interacted";
+							cout<<"Already Interacted";		//if we go back to a person that has already been interacted with they won't respond
 							continueinteract=false;
 						}					
 					}
-					// and e.key.keysym.scancode==SDL_SCANCODE_X
-					else if (e.key.keysym.sym==SDLK_LEFT || e.key.keysym.sym==SDLK_RIGHT ||  e.key.keysym.sym==SDLK_DOWN || e.key.keysym.sym==SDLK_UP){		
+					else if (e.key.keysym.sym==SDLK_LEFT || e.key.keysym.sym==SDLK_RIGHT ||  e.key.keysym.sym==SDLK_DOWN || e.key.keysym.sym==SDLK_UP){		//case where Gulab can move around and go upto different classmates
 						deskcollided  = oopmania.Collision(s9, e.key.keysym.sym);		//if arrow keys are pressed, it checks for collision with desks and returns its position is terms of its moverrect  
 						if (deskcollided.x==0 && deskcollided.y==0 && deskcollided.w==0 && deskcollided.h==0)		//condition for no collision
 							collided=false;
 						else
 							collided=true;
-						if (collided == false){
+						if (collided == false){		//moves only when there's no collision detected
 							s9->movement(e.key.keysym.sym);
 						}
 					}
@@ -347,24 +330,18 @@ void Game::run( )
 		oopmania.drawObjects();
 		s9->draw();
 		if (win)
-			elements.draw('W');
+			elements.draw('W');		//draws win if the game state is won 	
 		else if(lost)
 			elements.draw('L');
 		else if (t.timerout())
 			elements.draw('T');
 		if (oopmania.Isfaculty()){
-				cout<<oopmania.facultyinteractionnum();
 				if (oopmania.facultyinteractionnum()==9){
 					if (InteractOrNot==false){
 						elements.draw('F');		//draws fade to highlight text
 						elements.draw('Q');}
 					else
 						elements.draw('F');	
-					// if (InteractOrNot){
-					// 	oopmania.interact(false);		//going to next intercation
-					// 	InteractOrNot=false;
-					// 	continue;
-					// }
 				}
 				if (oopmania.getvivastatus() && !win && !lost && !(t.timerout())){
 					elements.draw('F');
@@ -440,14 +417,9 @@ void Game::run( )
             Mix_PlayMusic(bgMusic, 2);
             int Mix_VolumeMusic(30);
         }
-		//***********************draw the objects here********************
-
-		//****************************************************************
     	SDL_RenderPresent(Drawing::gRenderer); //displays the updated renderer
-
 	    SDL_Delay(100);	//causes sdl engine to delay for specified miliseconds
 	}
-			
 }
 		// if (win || lost)
 		// 	SDL_Delay(1000);

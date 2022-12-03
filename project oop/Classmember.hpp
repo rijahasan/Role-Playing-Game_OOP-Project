@@ -7,15 +7,14 @@
 
 class Classmember{
     public:
-    //string Name;
-    interactions I;
+    interactions I;     //each classmember have their own set of defined interactions
     SDL_Rect srcRect, srcRectF, moverRect, srcRectB;       //srcRectB represents back side of the sprite while srcRectF represents front side 
-    int count = 0;
-    void moveDown();
-    void moveUp();
-    void moveRight();
-    void moveLeft();
-    void makeMove(int);
+    int count = 0;      //checks the orientation of the classmember
+    void moveDown();    //moves down 
+    void moveUp();  //moves down 
+    void moveRight();   //moves right
+    void moveLeft();        //moves left 
+    void makeMove(int);     
     bool turned=false;      //if the class member is turned or not
     Classmember();
     ~Classmember();
