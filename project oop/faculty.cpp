@@ -20,8 +20,7 @@ void faculty :: draw()
 }
 
 
-bool faculty :: viva(){
-    cout<<I.questionnum();
+bool faculty :: viva(){ //checks the question number from its interaction object I an returns viva status 
     if (I.questionnum()>=1)
         return true;
     return false;

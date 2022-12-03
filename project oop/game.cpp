@@ -215,21 +215,22 @@ void Game::run()
             if (e.type == SDL_MOUSEBUTTONDOWN){
                 SDL_GetMouseState(&xMouse, &yMouse);
                 cout << xMouse << " & " << yMouse << endl;
-                if (xMouse > 454 && xMouse < 548 && yMouse > 338 && yMouse < 397)		//for play buttons{
+                if (xMouse > 454 && xMouse < 548 && yMouse > 338 && yMouse < 397 && !drawinstructions)	{	//for play buttons{
                     check = true;
 				    gTexture = loadTexture("background.png");
-                }
-                else if (xMouse > 395 && xMouse < 610 && yMouse > 452 && yMouse < 508 && drawinstructions==false)		//for intructions buttons
+				}
+                else if (xMouse > 395 && xMouse < 610 && yMouse > 452 && yMouse < 508 && !drawinstructions)		//for intructions buttons
 					drawinstructions=true;
-				else if (drawinstructions==true)
+				else if (drawinstructions==true)		//if mouse clicks anywhere instructions are hidden again
 					drawinstructions=false;
             }
-			SDL_RenderClear(Drawing::gRenderer); //removes everything from renderer				
-			SDL_RenderCopy(Drawing::gRenderer, gTexture, NULL, NULL);//Draws background to renderer
-			if (drawinstructions==true){
-				elements.draw('I');	}
-			SDL_RenderPresent(Drawing::gRenderer); //displays the updated renderer
-			SDL_Delay(100);	//causes sdl engine to delay for specified miliseconds
+		}
+		SDL_RenderClear(Drawing::gRenderer); //removes everything from renderer				
+		SDL_RenderCopy(Drawing::gRenderer, gTexture, NULL, NULL);//Draws background to renderer
+		if (drawinstructions==true){
+			elements.draw('I');	}
+		SDL_RenderPresent(Drawing::gRenderer); //displays the updated renderer
+		SDL_Delay(100);	//causes sdl engine to delay for specified miliseconds
 
     }
 	bool completed=false; 	//checks if the conversation is completed between two characters
@@ -245,9 +246,10 @@ void Game::run()
 	int starttime;
 	while( !quit )
 	{	//Handle events on 
-		if (oopmania.getvivastatus()){
+		if (oopmania.getvivastatus() && !win && !lost && !t.timerout()){
 			t.seconds=int(SDL_GetTicks())/100-starttime;	//current time is added to our time class's object t
 			++t;		//operator overloading
+
 		}
 		while( SDL_PollEvent( &e ) != 0 ){
 			//User requests quit
@@ -274,7 +276,7 @@ void Game::run()
 						queanswered=true;	
 						newans=true;
 						continueinteract =  true;
-						cout<<"Press x to move on to next question!";
+						cout<<"Press x to move on to next question!"<<endl;
 						break;
 					}
 					else if (oopmania.getvivastatus() && e.key.keysym.sym==SDLK_x && queanswered){		//if last question was answeresd and x is pressed 
@@ -310,7 +312,7 @@ void Game::run()
 						}
 						else{
 							collided = false; //when the interaction is done make it false	
-							cout<<"Already Interacted";		//if we go back to a person that has already been interacted with they won't respond
+							cout<<"Already Interacted"<<endl;		//if we go back to a person that has already been interacted with they won't respond
 							continueinteract=false;
 						}					
 					}
@@ -328,6 +330,7 @@ void Game::run()
 		}
 		SDL_RenderClear(Drawing::gRenderer); //removes everything from renderer				
 		SDL_RenderCopy(Drawing::gRenderer, gTexture, NULL, NULL);//Draws background to renderer
+
 		oopmania.drawObjects();
 		s9->draw();
 		if (win)
@@ -377,7 +380,6 @@ void Game::run()
 				}
 			}
 		}
-		++t;
 		t.draw();
 		Lmeter.draw();
 		if (InteractOrNot && !win && !lost && !(t.timerout())){

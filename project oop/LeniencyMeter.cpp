@@ -6,7 +6,7 @@ void LeniencyMeter :: draw ()
 {
      SDL_RenderCopy(Drawing::gRenderer, Drawing::moreassets, &srcRect, &moverRect);
 }
-void LeniencyMeter :: operator ++()
+void LeniencyMeter :: operator ++ ()
         {
     switch (meter){     //
         case 0:
