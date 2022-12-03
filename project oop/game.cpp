@@ -105,8 +105,8 @@ bool Game::loadMedia()
         success =false;
     }
 	bgMusic = Mix_LoadMUS("pink-panther-6836.mp3");
-    RightansMusic = Mix_LoadWAV("magical-hit-45356.mp3");
-    //WrongansMusic = Mix_LoadWAV("negative_beeps-6008.mp3");
+    RightansMusic = Mix_LoadWAV("Winner Sms.mp3");
+    WrongansMusic = Mix_LoadWAV("buzzer-or-wrong-answer-20582.mp3");
     if (bgMusic == NULL || RightansMusic == NULL)
     {
         printf("Unable to load music: %s \n", Mix_GetError());
@@ -349,8 +349,8 @@ void Game::run()
 					t.draw();
 					if (queanswered && correctans){		//checks if the answeres question is correct
 						elements.draw('C');		//draws the correct answer message
-						Mix_PlayChannel(-1, RightansMusic, 1);
 						if (newans){	
+							Mix_PlayChannel(-1, RightansMusic, 1);
 							++Lmeter;		//if the answer is new, the leniency meter is increased
 							Lmeter.draw();
 							newans=false;	
@@ -360,6 +360,7 @@ void Game::run()
 					else if (queanswered && !correctans){
 						elements.draw('L');		//if any answer is wrong game is lost
 						lost=true;
+						Mix_PlayChannel(-1, WrongansMusic, 1);
 						InteractOrNot=false;		//won't interact
 					}
 					Lmeter.draw();		//draws the leniency meter in all iterations 
