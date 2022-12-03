@@ -18,7 +18,7 @@ SDL_Texture* Drawing::moreassets = NULL;
 SDL_Texture* Drawing::classmates = NULL;
 SDL_Texture* Drawing::textboxes = NULL;
 
-
+using namespace std;
 
 bool Game::init()
 {
@@ -253,49 +253,53 @@ void Game::run( )
 	bool InteractOrNot=false; 
 	bool continueinteract=false;
 	bool correctans=false;
-	int seconds=0;		//starting second is 0 
 	int questionnumber=0;
-	bool meterfull=false;
 	bool newans=true;
 	bool nextques=false;		//checks whether to move on to next question
 	bool queanswered=false;			//checks if a question is answered
 	// int bee_frame;
 	while( !quit )
 	{	//Handle events on queue
+
 		while( SDL_PollEvent( &e ) != 0 ){
 			//User requests quit
-			if( e.type == SDL_QUIT ){
+			if(e.type == SDL_QUIT){
 				quit = true;
+				break;
 			}
+			if (win || lost || t.timerout())
+				break;
 			if(e.type == SDL_KEYDOWN){
-					if (oopmania.Isfaculty() && oopmania.facultyinteractionnum()==10){		//case where viva is just about to start
+					if (oopmania.Isfaculty() && oopmania.facultyinteractionnum()==9){		//case where viva is just about to start
 						if (e.key.keysym.sym==SDLK_x){
 							continueinteract=false;
 							InteractOrNot=true;
 							break;
 						}
 						else{
-							InteractOrNot=false;
 							break;
 						}
 					}
 					if (oopmania.getvivastatus() && !queanswered && (e.key.keysym.sym==SDLK_y || e.key.keysym.sym==SDLK_n)){		//case where a question is answered
 						correctans = oopmania.checkans(oopmania.getquestionnum(),e.key.keysym.sym);		//calling check ans function
-						InteractOrNot=false;		//wont move on until x is pressed 
+						InteractOrNot=true;		//wont move on until x is pressed 
 						queanswered=true;
 						newans=true;
+						continueinteract =  true;
 						break;
 					}
 					else if (oopmania.getvivastatus() && e.key.keysym.sym==SDLK_x && queanswered){		//if last question was answeresd and x is pressed 
-						nextques=true;		//onlu move to nect ques when x is pressed and que answered
+						newans=false;		//onlu move to nect ques when x is pressed and que answered
 						continueinteract=false;
-						InteractOrNot=oopmania.interactedstatus(0);
+						nextques=true;
+						queanswered=false;
+						InteractOrNot=true;
+						// InteractOrNot=oopmania.interactedstatus(0);
 						break;
 					}
 					else if (oopmania.getvivastatus() && queanswered){
-						InteractOrNot=false;
+						InteractOrNot=true;
 						newans=false;
-						nextques=false;
 						continueinteract=true;
 						break;
 					}
@@ -304,10 +308,8 @@ void Game::run( )
 						// newans=false;
 						// nextques=false;
 						// continueinteract=true;
-						break;
-
-					}
-						
+						continue;
+					}	
 					if (continueinteract && e.key.keysym.sym!=SDLK_x && collided)		//if x is not pressed, game won't move on to the nect statement in the interaction
 						break;
 					else if (continueinteract && e.key.keysym.sym==SDLK_x && collided){ 		//if x is pressed, game moves on to the nect statement in the interaction
@@ -315,7 +317,7 @@ void Game::run( )
 						break;
 					}
 					if (collided && e.key.keysym.sym==SDLK_x)	{	///checks if the collision was true in the last iteration and that x is pressed
-						InteractOrNot=oopmania.turnstudentAtDesk(deskcollided);		//turns the student at desk of collision
+						InteractOrNot=oopmania.turnstudentAtDesk(deskcollided);	//turns the student at desk of collision
 						if (InteractOrNot){	   //if the interaction has not happened, interact
 							collided=true;		//remains collided
 							continueinteract=true;
@@ -344,19 +346,15 @@ void Game::run( )
 		SDL_RenderCopy(Drawing::gRenderer, gTexture, NULL, NULL);//Draws background to renderer
 		oopmania.drawObjects();
 		s9->draw();
-		if (win==true){
+		if (win)
 			elements.draw('W');
-			continue;
-		}
-		if (lost==true){
+		else if(lost)
 			elements.draw('L');
-			continue;
-		}
-
-        // leniency meter: srcRect={35, 8, 130, 6}
-        // leniency meter: srcRect={35, 8, 130, 6}
+		else if (t.timerout())
+			elements.draw('T');
 		if (oopmania.Isfaculty()){
-				if (oopmania.facultyinteractionnum()==10){
+				cout<<oopmania.facultyinteractionnum();
+				if (oopmania.facultyinteractionnum()==9){
 					if (InteractOrNot==false){
 						elements.draw('F');		//draws fade to highlight text
 						elements.draw('Q');}
@@ -368,64 +366,68 @@ void Game::run( )
 					// 	continue;
 					// }
 				}
-				if (oopmania.getvivastatus()){
+				if (oopmania.getvivastatus() && !win && !lost && !(t.timerout())){
 					elements.draw('F');
 					elements.draw('Y');
-					seconds++;
 					t.draw();
-					t.IncreaseTime(seconds);
+					t.seconds++;
+					++t;		//operator overloading
 					if (queanswered && correctans){
 						elements.draw('C');
 						if (newans){
 							++Lmeter;
-							meterfull=Lmeter.full;
+							Lmeter.draw();
+							newans=false;
 						}
+						InteractOrNot=false;
 					}
 					else if (queanswered && !correctans){
 						elements.draw('L');		//if any answer is wrong game is lost
-						if (newans)
-						{lost=true;
-						// continue;
-						}
+						lost=true;
+						InteractOrNot=false;
 					}
-					// else if ()
 					Lmeter.draw();
-				if (meterfull){
+					// else if ()
+					
+				if (Lmeter.full && !lost){
 					elements.draw('W');
 					win=true;
-					// continue;
 							// system.("pause")
 				}
-				if (t.timerout(seconds)){
-					elements.draw('L');
+				if (t.timerout() and !win){
+					elements.draw('T');
 					lost =true ;
-					// continue;
 				}
 			}
 		}
-		if (InteractOrNot){
+		if (InteractOrNot && !win && !lost && !(t.timerout())){
 			if (!oopmania.getvivastatus())
 				completed=oopmania.interact(continueinteract);
 			else{
-				completed=oopmania.interact(continueinteract && !nextques);
+				completed=oopmania.interact(!nextques);
 				// queanswered=false;
 				// nextques=false;
 			}
-
-			if (oopmania.Isfaculty() && (oopmania.getvivastatus() || oopmania.facultyinteractionnum()==10)){
-				
-				if (nextques){
-					InteractOrNot=false;
-					queanswered=false;
-					nextques=false;
-					elements.draw('Y');
-				}
-				else{
-					InteractOrNot=true;
-					nextques=false;
-					elements.draw('Y');
+			if (oopmania.getvivastatus()){
+					if (nextques){
+						InteractOrNot=true;
+						queanswered=false;
+						nextques=false;
+						newans=false;
+						}
+					else{
+						InteractOrNot=true;
+						newans=false;
+					}
+	
+				// 	else{
+				// 		InteractOrNot=true;
+				// 		queanswered=false;
+				// }
+				elements.draw('Y');
 			}
-
+			else if (oopmania.facultyinteractionnum()==9){
+				elements.draw('Q');
 			}
 			if (completed)
 				continueinteract=false;		//interaction completed
@@ -447,3 +449,7 @@ void Game::run( )
 	}
 			
 }
+		// if (win || lost)
+		// 	SDL_Delay(1000);
+        // leniency meter: srcRect={35, 8, 130, 6}
+        // leniency meter: srcRect={35, 8, 130, 6}

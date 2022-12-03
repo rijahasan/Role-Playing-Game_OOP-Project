@@ -20,6 +20,7 @@ class interactions{
     void drawtextbox();
     bool drawnexttextbox();     //returns false if the textbox is empty
     int questionnum();
+    int getcount();
     ~interactions();
 
 };

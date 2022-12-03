@@ -19,20 +19,23 @@ bool interactions :: drawnexttextbox(){
         textboxes.erase(textboxes.begin());
         return false;       //interaction has not been completed
     }
-    return true;       //interaction has been completed
+    return true;       //interaction has been completed      
 }
 
-void interactions :: drawtextbox(){
+void interactions :: drawtextbox(){                                
     textboxes[0]->draw();
 }
 
 int interactions :: questionnum(){
-    if (count>=11)
-        return count-10;
+    if (count>=10)
+        return count-9;
     else
         return 0;
 }
 
-interactions :: ~interactions(){
-    
+int interactions :: getcount(){
+    return count;
+}
+
+interactions :: ~interactions(){   
 }

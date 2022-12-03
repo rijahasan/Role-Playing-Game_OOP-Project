@@ -40,3 +40,4 @@ class Oopdastaan{
     bool interactedstatus (int);
     ~Oopdastaan();
 };
+

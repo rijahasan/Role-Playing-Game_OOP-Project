@@ -236,7 +236,7 @@ bool Oopdastaan ::  getvivastatus(){
 }
 
 int Oopdastaan ::  facultyinteractionnum(){
-    return C[0]->I.count;
+    return C[0]->I.getcount();
 }
 
 int Oopdastaan :: getquestionnum(){
@@ -252,13 +252,13 @@ bool Oopdastaan :: checkans(int a, SDL_Keycode key){
                 return false;
         break;
         case 2:
-            if (key==SDLK_n)
+            if (key==SDLK_y)
                 return true;
             else
                 return false;
         break;
         case 3:
-            if (key==SDLK_y)
+            if (key==SDLK_n)
                 return true;
             else
                 return false;

@@ -14,8 +14,8 @@ void drawelements :: draw (char a){
             SDL_RenderCopy(Drawing::gRenderer, Drawing::moreassets, &correctsrc, &correctmover);
         break;
         case 'T':
-            SDL_RenderCopy(Drawing::gRenderer, Drawing::white, &whitesrc, &losemover);
-            SDL_RenderCopy(Drawing::gRenderer, Drawing::moreassets, &losesrc, &losemover);
+            SDL_RenderCopy(Drawing::gRenderer, Drawing::white, &whitesrc, &timeroutmover);
+            SDL_RenderCopy(Drawing::gRenderer, Drawing::moreassets, &timeroutsrc, &timeroutmover);
         break;
         case 'Y':
             SDL_RenderCopy(Drawing::gRenderer, Drawing::white, &whitesrc, &ynmover);
@@ -26,9 +26,11 @@ void drawelements :: draw (char a){
             SDL_RenderCopy(Drawing::gRenderer, Drawing::moreassets, &quizstartingsrc, &quizstartingmover);
         break;
         case 'W':
+            SDL_RenderCopy(Drawing::gRenderer, Drawing::white, &whitesrc, &winmover);
             SDL_RenderCopy(Drawing::gRenderer, Drawing::moreassets, &winsrc, &winmover);
         break;
         case 'L':
+            SDL_RenderCopy(Drawing::gRenderer, Drawing::white, &whitesrc, &losemover);
             SDL_RenderCopy(Drawing::gRenderer, Drawing::moreassets, &losesrc, &losemover);
         break;   
     }
