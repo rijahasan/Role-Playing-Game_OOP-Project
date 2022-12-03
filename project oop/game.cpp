@@ -105,7 +105,7 @@ bool Game::loadMedia()
         success =false;
     }
 	bgMusic = Mix_LoadMUS("pink-panther-6836.mp3");
-    RightansMusic = Mix_LoadWAV("Winner Sms.mp3");
+    RightansMusic = Mix_LoadWAV("rightans.mp3");
     WrongansMusic = Mix_LoadWAV("buzzer-or-wrong-answer-20582.mp3");
     if (bgMusic == NULL || RightansMusic == NULL)
     {
@@ -242,12 +242,12 @@ void Game::run()
 	bool newans=true;		// leniency meter is only increased only once for each correct answer 
 	bool nextques=false;		//checks whether to move on to next question
 	bool queanswered=false;			//checks if a question is answered
+	int starttime;
 	while( !quit )
 	{	//Handle events on 
 		if (oopmania.getvivastatus()){
-			t.seconds=int(SDL_GetTicks())/100;	//current time is added to our time class's object t
+			t.seconds=int(SDL_GetTicks())/100-starttime;	//current time is added to our time class's object t
 			++t;		//operator overloading
-			cout<<t.seconds<<endl;
 		}
 		while( SDL_PollEvent( &e ) != 0 ){
 			//User requests quit
@@ -262,6 +262,7 @@ void Game::run()
 						if (e.key.keysym.sym==SDLK_x){		
 							continueinteract=false;			//if x is pressed  conversation progresses and a different textbox is darwn
 							InteractOrNot=true;
+							starttime=int(SDL_GetTicks())/100;
 							break;
 						}
 						else
@@ -350,17 +351,17 @@ void Game::run()
 					if (queanswered && correctans){		//checks if the answeres question is correct
 						elements.draw('C');		//draws the correct answer message
 						if (newans){	
-							Mix_PlayChannel(-1, RightansMusic, 1);
+							Mix_PlayChannel(-1, RightansMusic, 0);		//co
 							++Lmeter;		//if the answer is new, the leniency meter is increased
 							Lmeter.draw();
 							newans=false;	
 						}
 						InteractOrNot=false;		//won't interact until c is pressed again
 					}
-					else if (queanswered && !correctans){
+					else if (queanswered && !correctans){	
 						elements.draw('L');		//if any answer is wrong game is lost
 						lost=true;
-						Mix_PlayChannel(-1, WrongansMusic, 1);
+						Mix_PlayChannel(-1, WrongansMusic, 0);
 						InteractOrNot=false;		//won't interact
 					}
 					Lmeter.draw();		//draws the leniency meter in all iterations 
