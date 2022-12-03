@@ -184,23 +184,23 @@ bool Oopdastaan :: interact(bool Cont){     //checks whether to move on to next 
     return false;
 
 }
-bool Oopdastaan ::  Isfaculty(){
+bool Oopdastaan ::  Isfaculty(){        //check if the interaction with faculty has started or not
     return isfaculty;
 }
 
-bool Oopdastaan ::  getvivastatus(){
+bool Oopdastaan ::  getvivastatus(){        //checks if the viva has started or not  
     return VivaStarted;
 }
 
-int Oopdastaan ::  facultyinteractionnum(){
+int Oopdastaan ::  facultyinteractionnum(){     //checks the textbox number while interacting with faculty (important to detect to alert the player that vica and timer is starting)
     return C[0]->I.getcount();
 }
 
-int Oopdastaan :: getquestionnum(){
+int Oopdastaan :: getquestionnum(){     //return the current question number the viva is on
     return C[nextinteraction]->I.questionnum();
     }
 
-bool Oopdastaan :: checkans(int a, SDL_Keycode key){
+bool Oopdastaan :: checkans(int a, SDL_Keycode key){        //checks if the answer for a specific question is correct or not
     switch (a){
         case 1:
             if (key==SDLK_y)
@@ -227,16 +227,15 @@ bool Oopdastaan :: checkans(int a, SDL_Keycode key){
                 return false;
         break;
         default:
-            cout<<"press a valid key";
-
+            cout<<"press a valid key (y or n)"<<endl;      //if an invalid key is pressed during viva 
     }
 }
 
-bool Oopdastaan :: interactedstatus (int a){
+bool Oopdastaan :: interactedstatus (int a){        //returns interacted status of a classmember at index a
     return interacted[a];
 }
 
-Oopdastaan:: ~Oopdastaan()
+Oopdastaan:: ~Oopdastaan()      //destructor for oopdastan, releases all memory for the dynamically created objects
 {
     for (int i=0;i<10;i++)
         delete D[i];
@@ -245,24 +244,5 @@ Oopdastaan:: ~Oopdastaan()
         delete C[i];
     delete [] C;
     delete [] interacted;
-    /*
-    for (int i = 0; i < pigeons.size(); i++) //this deletes all the pointers of vector and then clears the vector
-    {
-        delete pigeons[i];
-        pigeons.clear();
-    }
-
-    for (int j = 0; j < bees.size(); j++)
-    {
-        delete bees[j];
-        bees.clear();
-    }
-
-    for (int k = 0; k < butterflies.size(); k++)
-    {
-        delete butterflies[k];
-        butterflies.clear();
-    }
-    */
 }
 
